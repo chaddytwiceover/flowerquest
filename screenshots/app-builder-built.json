@@ -1,0 +1,37 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Monnie's Flower Quest",
+      "hasCanvas": false,
+      "bodyTextLen": 202,
+      "bodyTextHash": "ef7dbebd5e2dd88b9cfc6ef991e119dc292d01b185a8e5e32dbc5d0065681275",
+      "bodyTextPrefix": "LEVEL 1 Sign in A GARDEN ADVENTURE Monnie's Flower Quest The Mea",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Monnie's Flower Quest",
+      "hasCanvas": false,
+      "bodyTextLen": 194,
+      "bodyTextHash": "89bc812a7d96fb03569e89daa8a758b0561a7bc7ce752c29c0bc8027799de464",
+      "bodyTextPrefix": "LEVEL 1 A GARDEN ADVENTURE Monnie's Flower Quest The Meadow Gate",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}

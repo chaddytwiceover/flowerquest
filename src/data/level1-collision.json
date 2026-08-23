@@ -1,0 +1,7 @@
+{
+  "map": "level-1",
+  "width": 1408,
+  "height": 1408,
+  "boundsInset": 40,
+  "note": "Playable collision lives in src/game/levels/level1.ts so new levels stay data-driven."
+}

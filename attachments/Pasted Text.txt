@@ -1,0 +1,725 @@
+FINAL RELEASE QA — FLOWER QUEST LITE DEMO v0.1
+
+CONTENT DEVELOPMENT IS NOW FROZEN.
+
+The Lite Demo consists of exactly 5 levels:
+
+Level 1 — The Meadow Gate
+Level 2 — Tulip Trail
+Level 3 — Sunflower Crossing
+Level 4 — Twin Bloom Garden
+Level 5 — Rosewood Maze
+
+DO NOT CREATE LEVELS 6–10.
+
+This milestone is ONLY:
+
+QA
+BUG FIXING
+REGRESSION TESTING
+MOBILE TESTING
+PERFORMANCE CHECKING
+CODE CLEANUP
+RELEASE STABILIZATION
+
+Do not redesign the game.
+Do not change Monnie.
+Do not add new mechanics.
+Do not add new enemies.
+Do not add new levels.
+Do not make speculative refactors.
+Do not expand scope.
+
+The goal is to make the existing 5-level demo as reliable and polished as possible.
+
+==================================================
+PHASE 1 — BUILD / STARTUP AUDIT
+==================================================
+
+Verify the project:
+
+- installs/builds without errors
+- launches without runtime errors
+- has no missing imports
+- has no missing assets
+- has no broken sprite paths
+- has no obvious console errors
+- has no duplicate registrations
+- has no invalid level references
+- correctly initializes Phaser
+- correctly initializes game state
+- correctly initializes Level 1
+
+Check the browser console during testing.
+
+Fix genuine errors.
+
+Do not hide errors without fixing their cause.
+
+==================================================
+PHASE 2 — COMPLETE 5-LEVEL PLAYTHROUGH
+==================================================
+
+Perform a continuous playthrough:
+
+TITLE
+→ LEVEL 1
+→ LEVEL 2
+→ LEVEL 3
+→ LEVEL 4
+→ LEVEL 5
+→ DEMO COMPLETE
+
+Do not QA each level only in isolation.
+
+Verify the entire progression chain works during one continuous session.
+
+==================================================
+PHASE 3 — LEVEL 1 QA
+==================================================
+
+Verify:
+
+- Level 1 loads
+- correct level name
+- correct objective
+- Monnie spawns correctly
+- Monnie sprite is correct
+- idle animation works
+- directional animations work
+- keyboard movement works
+- mobile movement works
+- collision works
+- all flowers are reachable
+- flowers collect once only
+- counter updates correctly
+- beetle collision works
+- hearts decrement correctly
+- damage cannot accidentally fire repeatedly from one collision
+- pause works
+- resume works
+- joystick clears correctly on pause
+- win condition occurs at correct flower count
+- completion card appears
+- Continue advances to Level 2
+
+Verify no Level 2–5 changes have altered Level 1 behavior.
+
+==================================================
+PHASE 4 — LEVEL 2 QA
+==================================================
+
+Verify:
+
+- Level 2 loads correctly
+- exactly 5 tulips exist
+- all tulips are reachable
+- HUD reads correctly
+- counter reaches exactly 5/5
+- beetles behave correctly
+- locked gate cannot complete level
+- locked gate gives appropriate feedback
+- collecting tulip #5 does NOT complete level
+- gate unlocks
+- unlock feedback appears
+- objective changes to reaching the gate
+- entering unlocked gate completes level
+- Continue advances to Level 3
+
+Test attempting to reach the gate BEFORE collecting anything.
+
+Test gate again after collecting:
+1/5
+3/5
+4/5
+5/5
+
+==================================================
+PHASE 5 — LEVEL 3 QA
+==================================================
+
+Verify:
+
+- Level 3 loads correctly
+- exactly 6 sunflowers exist
+- all sunflowers are reachable
+- water collision works
+- Monnie cannot cross water illegally
+- all 3 bridges are traversable
+- bridge collision does not snag Monnie
+- no invisible wall blocks a valid crossing
+- beetles behave correctly
+- HUD reaches exactly 6/6
+- sunflower #6 does NOT immediately win
+- exit unlocks
+- objective updates
+- unlocked exit completes level
+- Continue advances to Level 4
+
+Stress-test water boundaries.
+
+Attempt to cross:
+- beside bridges
+- at bridge edges
+- diagonally
+- while holding movement
+- using mobile joystick
+
+Monnie must not bypass water collision.
+
+==================================================
+PHASE 6 — LEVEL 4 QA
+==================================================
+
+Verify:
+
+- Level 4 loads correctly
+- exactly 3 roses exist
+- exactly 3 bluebells exist
+- all six collectibles are reachable
+- rose collection affects ONLY Roses
+- bluebell collection affects ONLY Bluebells
+- HUD renders both counters correctly
+- completed objective styling works
+- completing roses only does not unlock gate
+- completing bluebells only does not unlock gate
+- locked-gate remaining-objective feedback is correct
+- gate unlocks only when BOTH requirements reach 3/3
+- final collectible does NOT immediately win
+- objective changes
+- entering unlocked gate completes level
+- Continue advances to Level 5
+
+TEST COLLECTION ORDER:
+
+Run at least:
+
+A:
+3 roses → 3 bluebells
+
+B:
+3 bluebells → 3 roses
+
+C:
+alternate rose → bluebell → rose → bluebell
+
+All orders must produce the same valid completion state.
+
+==================================================
+PHASE 7 — LEVEL 5 QA
+==================================================
+
+Verify:
+
+- Level 5 loads correctly
+- exactly 5 roses exist
+- all roses are reachable
+- hedge collision works
+- Monnie cannot cut through hedge walls
+- valid corridors are not accidentally blocked
+- no collision traps Monnie permanently
+- beetles are avoidable
+- HUD reaches exactly 5/5
+- gate stays locked before completion
+- rose #5 does NOT immediately win
+- gate unlocks
+- objective changes
+- entering unlocked gate completes Level 5
+
+Because Level 5 is the final Lite Demo level:
+
+DO NOT show a Continue button pointing to Level 6.
+
+Instead show a proper demo-completion state.
+
+Suggested copy:
+
+FLOWER QUEST
+LITE DEMO COMPLETE
+
+"You helped Monnie make it through all five gardens!"
+
+Provide appropriate actions such as:
+
+PLAY AGAIN
+TITLE SCREEN
+
+Do not create Level 6.
+
+==================================================
+PHASE 8 — PLAYER / MONNIE QA
+==================================================
+
+Across ALL FIVE LEVELS verify:
+
+- same Monnie sprite
+- correct sprite scaling
+- no unexpected character replacement
+- up animation
+- down animation
+- left animation
+- right animation
+- directional idle state
+- no animation stuck after movement
+- no animation stuck after pause
+- no sprite flickering
+- no obvious frame slicing errors
+- player remains visually aligned with collision body
+
+Test rapid direction changes.
+
+Test:
+
+UP → LEFT → DOWN → RIGHT
+
+and repeated diagonals / joystick circles.
+
+==================================================
+PHASE 9 — MOBILE QA
+==================================================
+
+This is a MOBILE-FIRST game.
+
+Perform a dedicated mobile-layout audit.
+
+Test representative viewport sizes including approximately:
+
+320x568
+375x667
+390x844
+393x852
+414x896
+430x932
+
+Also test at least one landscape viewport.
+
+Verify:
+
+- game fits screen
+- no accidental browser-page scrolling while controlling Monnie
+- canvas scales correctly
+- aspect ratio remains acceptable
+- joystick remains reachable
+- joystick doesn't cover important HUD information
+- joystick doesn't cover critical collectibles
+- pause button is reachable
+- HUD text remains readable
+- objective counters don't overflow
+- multi-objective Level 4 HUD fits
+- completion cards fit
+- buttons have comfortable touch targets
+- title screen fits
+- no important text is clipped
+- no horizontal page overflow
+- no mobile-only collision problems
+
+Test rapid joystick movement.
+
+Test dragging outside joystick bounds.
+
+Test releasing joystick while:
+- moving
+- pausing
+- touching screen elsewhere
+
+Movement must stop correctly.
+
+==================================================
+PHASE 10 — DESKTOP QA
+==================================================
+
+Verify:
+
+- WASD
+- arrow keys
+- pause
+- menus
+- responsive scaling
+- level progression
+
+Test browser resizing during gameplay.
+
+Game must remain functional.
+
+==================================================
+PHASE 11 — COLLISION STRESS TEST
+==================================================
+
+Across all levels deliberately attempt to break collision.
+
+Test:
+
+- walking continuously into walls
+- diagonal movement into corners
+- sliding along obstacles
+- rapidly reversing direction
+- pushing into trees
+- pushing into rocks
+- pushing into hedges
+- pushing into water
+- pushing against locked gates
+- walking between closely spaced objects
+
+Look specifically for:
+
+- tunneling
+- clipping
+- getting stuck
+- teleporting
+- jitter
+- collision-body mismatch
+
+Fix reproducible collision defects.
+
+==================================================
+PHASE 12 — DAMAGE / LIVES QA
+==================================================
+
+Test hazards deliberately.
+
+Verify:
+
+- damage occurs correctly
+- heart count decreases correctly
+- one collision doesn't unexpectedly remove multiple hearts
+- player can recover from damage
+- zero hearts triggers intended failure behavior
+- game does not continue in an invalid state
+- restart after losing works
+- restarting resets flowers/objectives/gate state
+- restarting does not duplicate entities
+
+Repeat game-over/restart multiple times.
+
+==================================================
+PHASE 13 — PAUSE / RESUME STRESS TEST
+==================================================
+
+Test pause/resume:
+
+- standing still
+- while moving
+- near a flower
+- near a beetle
+- near a gate
+- while using joystick
+- immediately after taking damage
+- immediately after collecting a flower
+
+Verify:
+
+- movement stops
+- joystick resets
+- hazards stop if intended
+- state resumes correctly
+- flowers aren't duplicated
+- objectives aren't lost
+- player doesn't teleport
+- gate state remains correct
+
+Pause/resume repeatedly.
+
+==================================================
+PHASE 14 — RESTART / STATE RESET QA
+==================================================
+
+Restart each level at different progress points.
+
+Examples:
+
+0 flowers
+1 flower
+almost complete
+gate unlocked
+after taking damage
+
+Restart must correctly restore:
+
+- player spawn
+- hearts
+- flowers
+- objectives
+- hazards
+- gate lock state
+- HUD
+- level-specific environmental state
+
+Nothing from the previous attempt should leak into the restart.
+
+==================================================
+PHASE 15 — RAPID INPUT / EDGE CASE QA
+==================================================
+
+Attempt:
+
+- rapid keyboard tapping
+- opposite keys simultaneously
+- joystick circles
+- rapidly entering/exiting pause
+- touching flowers while moving rapidly
+- touching gate during unlock transition
+- collecting final flower near gate
+- colliding with beetle near flower
+- taking damage near exit
+
+Look for race conditions or duplicated events.
+
+Particularly verify:
+
+FINAL FLOWER → GATE UNLOCK → EXIT
+
+cannot trigger completion twice.
+
+==================================================
+PHASE 16 — LEVEL DATA AUDIT
+==================================================
+
+Inspect Levels 1–5.
+
+Verify:
+
+- level IDs unique
+- level numbers correct
+- level names correct
+- player spawn valid
+- objective configuration valid
+- collectible positions valid
+- hazard positions valid
+- obstacle positions valid
+- exit positions valid
+- no unreachable required collectibles
+- no entities spawned outside world bounds
+- no accidental overlaps
+- correct next-level registration
+
+Check that content remains primarily data-driven.
+
+==================================================
+PHASE 17 — ARCHITECTURE AUDIT
+==================================================
+
+Search the codebase for suspicious level-specific logic.
+
+Specifically search for patterns conceptually equivalent to:
+
+if (level === 2)
+if (level === 3)
+if (level === 4)
+if (level === 5)
+
+or hard-coded level IDs inside generic systems.
+
+Level-specific CONTENT belongs in level data.
+
+Generic systems should remain generic.
+
+Do NOT refactor working code merely for aesthetic reasons.
+
+Only fix architectural problems that pose an actual correctness or maintenance issue.
+
+==================================================
+PHASE 18 — ASSET AUDIT
+==================================================
+
+Check:
+
+- Monnie sprite
+- flower sprites
+- bluebell
+- tulip
+- sunflower
+- rose
+- beetles
+- water
+- bridges
+- gates
+- maps
+- UI assets
+
+Verify:
+
+- files exist
+- preload paths correct
+- no 404s
+- no unused accidental duplicates where obvious
+- no broken transparency
+- no severe scaling artifacts
+- assets display correctly
+
+Do not redesign assets during this QA milestone.
+
+==================================================
+PHASE 19 — PERFORMANCE AUDIT
+==================================================
+
+Check for obvious performance problems.
+
+Look for:
+
+- unnecessary object creation every frame
+- duplicate event listeners
+- duplicate Phaser objects after restart
+- timers that survive scene shutdown
+- repeated texture loading
+- unnecessary DOM updates
+- runaway animation/tween creation
+- memory accumulation after restarting levels
+
+Perform repeated:
+
+Level load → restart → load → restart
+
+and verify performance does not noticeably degrade.
+
+Prioritize mobile performance.
+
+==================================================
+PHASE 20 — CONSOLE / ERROR AUDIT
+==================================================
+
+Complete another full playthrough while monitoring the console.
+
+There should be:
+
+- no uncaught exceptions
+- no repeated warnings caused by our code
+- no missing asset errors
+- no invalid scene errors
+- no duplicate animation errors
+- no state-transition errors
+
+Fix project-caused errors.
+
+==================================================
+PHASE 21 — FINAL DEMO FLOW
+==================================================
+
+The intended release experience must be:
+
+TITLE SCREEN
+
+↓
+
+LEVEL 1
+The Meadow Gate
+
+↓
+
+LEVEL 2
+Tulip Trail
+
+↓
+
+LEVEL 3
+Sunflower Crossing
+
+↓
+
+LEVEL 4
+Twin Bloom Garden
+
+↓
+
+LEVEL 5
+Rosewood Maze
+
+↓
+
+FLOWER QUEST
+LITE DEMO COMPLETE
+
+↓
+
+PLAY AGAIN
+or
+TITLE SCREEN
+
+There must be NO broken Level 6 reference.
+
+==================================================
+PHASE 22 — FINAL REGRESSION
+==================================================
+
+After ALL bug fixes are finished:
+
+RUN THE ENTIRE GAME AGAIN.
+
+Do not assume a bug fix is safe.
+
+Perform one final continuous Level 1 → Level 5 playthrough.
+
+Reverify:
+
+- movement
+- mobile controls
+- collisions
+- collectibles
+- objectives
+- hazards
+- hearts
+- pause
+- gates
+- progression
+- completion
+- final demo state
+
+Do not make additional nonessential changes after this final regression passes.
+
+==================================================
+BUG-FIX PRIORITY
+==================================================
+
+Classify discovered problems:
+
+P0 — BLOCKER
+Game cannot start, crashes, progression impossible, required collectible unreachable.
+
+P1 — CRITICAL
+Major gameplay mechanic broken, incorrect progression, collision exploit prevents intended play.
+
+P2 — MAJOR
+Noticeable gameplay/UI problem but demo remains completable.
+
+P3 — MINOR
+Visual/polish issue with little gameplay impact.
+
+Fix:
+
+ALL P0
+ALL P1
+ALL reasonable P2
+
+Only fix P3 issues if the fix is extremely low-risk.
+
+Do not destabilize the demo to chase cosmetic perfection.
+
+==================================================
+FINAL REPORT
+==================================================
+
+When finished, STOP DEVELOPMENT.
+
+Report:
+
+1. Overall QA result: PASS / PASS WITH KNOWN ISSUES / FAIL
+2. Number of complete playthroughs performed
+3. Levels tested
+4. Mobile viewport sizes tested
+5. Desktop testing performed
+6. P0 bugs found/fixed
+7. P1 bugs found/fixed
+8. P2 bugs found/fixed
+9. P3 issues intentionally left
+10. Files modified during QA
+11. Regression results
+12. Console/error status
+13. Performance observations
+14. Known technical debt
+15. Confirmation that Level 6 does not exist
+16. Confirmation that Level 5 ends the Lite Demo
+17. Confirmation Monnie remained unchanged
+18. Whether this build is safe to treat as:
+
+FLOWER QUEST LITE DEMO v0.1 RELEASE CANDIDATE
+
+Do not add features after issuing this report.

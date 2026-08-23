@@ -1,0 +1,186 @@
+{
+  "input": "/workspace/assets/sprites/flowers/raw-sheet.jpg",
+  "rows": 2,
+  "cols": 2,
+  "threshold": 100,
+  "edge_threshold": 150,
+  "component_mode": "largest",
+  "component_padding": 8,
+  "min_component_area": 100,
+  "edge_touch_margin": 0,
+  "accepted": [
+    {
+      "index": 0,
+      "label": "daisy",
+      "grid": [
+        0,
+        0
+      ],
+      "source_box": [
+        0,
+        0,
+        704,
+        704
+      ],
+      "component_mode": "largest",
+      "component_count": 5,
+      "selected_component_area": 103297,
+      "selected_component_bbox": [
+        153,
+        152,
+        555,
+        526
+      ],
+      "crop_bbox": [
+        153,
+        152,
+        555,
+        526
+      ],
+      "padded_crop_bbox": [
+        145,
+        144,
+        563,
+        534
+      ],
+      "edge_touch": false,
+      "output_size": [
+        418,
+        390
+      ],
+      "status": "accepted",
+      "image": "/workspace/assets/sprites/flowers/daisy/prop.png"
+    },
+    {
+      "index": 1,
+      "label": "tulip",
+      "grid": [
+        0,
+        1
+      ],
+      "source_box": [
+        704,
+        0,
+        1408,
+        704
+      ],
+      "component_mode": "largest",
+      "component_count": 2,
+      "selected_component_area": 72125,
+      "selected_component_bbox": [
+        209,
+        166,
+        470,
+        502
+      ],
+      "crop_bbox": [
+        209,
+        166,
+        470,
+        502
+      ],
+      "padded_crop_bbox": [
+        201,
+        158,
+        478,
+        510
+      ],
+      "edge_touch": false,
+      "output_size": [
+        277,
+        352
+      ],
+      "status": "accepted",
+      "image": "/workspace/assets/sprites/flowers/tulip/prop.png"
+    },
+    {
+      "index": 2,
+      "label": "rose",
+      "grid": [
+        1,
+        0
+      ],
+      "source_box": [
+        0,
+        704,
+        704,
+        1408
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 482234,
+      "selected_component_bbox": [
+        0,
+        0,
+        696,
+        696
+      ],
+      "crop_bbox": [
+        0,
+        0,
+        696,
+        696
+      ],
+      "padded_crop_bbox": [
+        0,
+        0,
+        696,
+        696
+      ],
+      "edge_touch": true,
+      "output_size": [
+        696,
+        696
+      ],
+      "status": "accepted",
+      "image": "/workspace/assets/sprites/flowers/rose/prop.png"
+    },
+    {
+      "index": 3,
+      "label": "sunflower",
+      "grid": [
+        1,
+        1
+      ],
+      "source_box": [
+        704,
+        704,
+        1408,
+        1408
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 482845,
+      "selected_component_bbox": [
+        0,
+        0,
+        696,
+        696
+      ],
+      "crop_bbox": [
+        0,
+        0,
+        696,
+        696
+      ],
+      "padded_crop_bbox": [
+        0,
+        0,
+        696,
+        696
+      ],
+      "edge_touch": true,
+      "output_size": [
+        696,
+        696
+      ],
+      "status": "accepted",
+      "image": "/workspace/assets/sprites/flowers/sunflower/prop.png"
+    }
+  ],
+  "rejected": [],
+  "edge_touch_props": [
+    "rose",
+    "sunflower"
+  ]
+}
