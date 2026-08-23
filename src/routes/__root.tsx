@@ -4,6 +4,8 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Monnie's Flower Quest";
+const APP_DESCRIPTION =
+  "Guide Monnie through five handcrafted gardens, collect every flower, dodge the beetles, and open the gate.";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -16,10 +18,15 @@ export const Route = createRootRoute({
       },
       { title: APP_NAME },
       { name: "theme-color", content: "#245C3A" },
-      {
-        name: "description",
-        content: "Help Monnie collect every flower in the meadow. Dodge the beetles.",
-      },
+      { name: "description", content: APP_DESCRIPTION },
+      { property: "og:title", content: APP_NAME },
+      { property: "og:description", content: APP_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: APP_NAME },
+      { name: "twitter:description", content: APP_DESCRIPTION },
+      { name: "twitter:image", content: "/x-banner.jpg" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
