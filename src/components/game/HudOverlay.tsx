@@ -21,7 +21,7 @@ export function HudOverlay({ onPause }: Props) {
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <p className="font-display text-[11px] tracking-[0.18em] text-gold uppercase">{levelName}</p>
-              <p className="mt-0.5 line-clamp-2 text-[11px] leading-tight text-cream/85">{levelSubtitle}</p>
+              <p className="mt-0.5 max-w-[12rem] text-[11px] leading-tight text-cream/85">{levelSubtitle}</p>
             </div>
             <div className="flex shrink-0 items-center gap-0.5">
               {Array.from({ length: heartsMax }).map((_, i) => (
