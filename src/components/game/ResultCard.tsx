@@ -1,3 +1,4 @@
+import { ArrowRight, Home, RotateCcw, Trophy } from "lucide-react";
 import { getLevel, getNextLevel } from "@/game/levels";
 import { useGameState } from "./useGameState";
 
@@ -22,9 +23,12 @@ export function ResultCard({ onRestart, onMenu, onContinue }: Props) {
   const copy = level.completion;
 
   return (
-    <div className="absolute inset-0 z-30 grid place-items-center bg-soil/50 px-6 backdrop-blur-[2px]">
-      <div className="w-full max-w-sm rounded-3xl bg-cream px-6 py-8 text-center text-ink shadow-[0_12px_0_#3a271c]">
-        <p className="font-display text-xs tracking-[0.22em] text-leaf uppercase">
+    <div className="absolute inset-0 z-30 grid place-items-center bg-soil/55 px-6 backdrop-blur-md">
+      <div className="w-full max-w-sm rounded-[1.5rem] bg-cream px-6 py-8 text-center text-ink shadow-[0_14px_0_#3a271c] ring-1 ring-soil/15">
+        <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-gold text-ink shadow-[0_5px_0_#b07d1c]">
+          <Trophy className="h-7 w-7" />
+        </div>
+        <p className="mt-5 font-display text-xs tracking-[0.22em] text-leaf uppercase">
           {demoDone ? "Flower Quest" : won ? copy.winKicker : copy.loseKicker}
         </p>
         <h2 className="mt-1 font-display text-3xl font-semibold">
@@ -40,9 +44,10 @@ export function ResultCard({ onRestart, onMenu, onContinue }: Props) {
             <button
               type="button"
               onClick={() => onContinue(next.id)}
-              className="w-full rounded-full bg-leaf px-5 py-3 font-bold text-cream shadow-[0_5px_0_#245c3a]"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-leaf px-5 py-3 font-bold text-cream shadow-[0_5px_0_#245c3a] transition-transform active:translate-y-1 active:shadow-[0_2px_0_#245c3a]"
             >
-              Continue to {next.name}
+              <span>Continue to {next.name}</span>
+              <ArrowRight className="h-5 w-5" />
             </button>
           )}
           <button
@@ -53,18 +58,20 @@ export function ResultCard({ onRestart, onMenu, onContinue }: Props) {
             }}
             className={
               won && next
-                ? "w-full rounded-full bg-blush px-5 py-3 font-bold text-ink"
-                : "w-full rounded-full bg-petal px-5 py-3 font-bold text-cream shadow-[0_5px_0_#9a3140]"
+                ? "flex w-full items-center justify-center gap-2 rounded-full bg-blush px-5 py-3 font-bold text-ink ring-1 ring-soil/10"
+                : "flex w-full items-center justify-center gap-2 rounded-full bg-petal px-5 py-3 font-bold text-cream shadow-[0_5px_0_#9a3140] transition-transform active:translate-y-1 active:shadow-[0_2px_0_#9a3140]"
             }
           >
-            {won ? "Play again" : "Try again"}
+            <RotateCcw className="h-5 w-5" />
+            <span>{won ? "Play again" : "Try again"}</span>
           </button>
           <button
             type="button"
             onClick={onMenu}
-            className="w-full rounded-full bg-blush px-5 py-3 font-bold text-ink"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-blush px-5 py-3 font-bold text-ink ring-1 ring-soil/10 transition-colors hover:bg-[#f0c6ae]"
           >
-            {demoDone ? "Title screen" : "Garden gate"}
+            <Home className="h-5 w-5" />
+            <span>{demoDone ? "Title screen" : "Garden gate"}</span>
           </button>
         </div>
       </div>
