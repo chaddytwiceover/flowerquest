@@ -140,6 +140,7 @@ export class GameScene extends Phaser.Scene {
 
   private collectFlower(flower: CollectibleRef) {
     if (!flower.active || this.ended) return;
+    const glow = flower.getData("glow") as Phaser.GameObjects.Sprite | undefined;
     flower.disableBody(true, false);
 
     playPlayerAction(this.player, "collect", 420);
@@ -152,6 +153,7 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.tweens.killTweensOf(flower);
+    if (glow) this.tweens.killTweensOf(glow);
     this.tweens.add({
       targets: flower,
       scale: flower.scale * 1.35,
@@ -160,6 +162,16 @@ export class GameScene extends Phaser.Scene {
       duration: 220,
       onComplete: () => flower.destroy(),
     });
+    if (glow) {
+      this.tweens.add({
+        targets: glow,
+        scale: glow.scale * 1.5,
+        alpha: 0,
+        y: glow.y - 20,
+        duration: 260,
+        onComplete: () => glow.destroy(),
+      });
+    }
 
     const burst = this.add.particles(flower.x, flower.y, "spark", {
       speed: { min: 40, max: 90 },
