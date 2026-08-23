@@ -35,7 +35,7 @@ export function FlowerQuestApp() {
       <div className="pointer-events-none absolute -left-20 top-16 hidden h-80 w-80 rounded-full border border-cream/15 sm:block" />
       <div className="pointer-events-none absolute -right-24 bottom-10 hidden h-96 w-96 rounded-full border border-gold/20 sm:block" />
 
-      <div className="relative h-[100dvh] w-full max-w-[430px] sm:h-[min(100dvh-2.5rem,900px)]">
+      <div className="relative h-[100dvh] w-full max-w-[430px] sm:h-[calc(100dvh-2.5rem)] sm:max-h-[900px]">
         <div className="pointer-events-none absolute -inset-2 hidden rounded-[2rem] bg-cream/10 shadow-[0_24px_80px_rgb(0_0_0_/_0.35)] sm:block" />
         <div className="game-shell relative h-full w-full overflow-hidden bg-moss shadow-[0_18px_70px_rgb(0_0_0_/_0.34)] sm:rounded-[1.65rem] sm:ring-1 sm:ring-cream/25">
           <PhaserCanvas onReady={onReady} />
