@@ -12,6 +12,20 @@ export function placeWorld(scene: Phaser.Scene, level: LevelDef) {
 
   const ground = scene.add.image(0, 0, mapKey).setOrigin(0, 0);
   ground.setDisplaySize(width, height);
+  ground.setDepth(-20);
+
+  const sunlight = scene.add.graphics();
+  sunlight.fillStyle(0xf7f1e3, 0.09);
+  sunlight.fillEllipse(width * 0.28, height * 0.18, width * 0.9, height * 0.42);
+  sunlight.setBlendMode("SCREEN");
+  sunlight.setDepth(-15);
+
+  const shade = scene.add.graphics();
+  shade.fillStyle(0x1c1612, 0.12);
+  shade.fillRect(0, 0, width, 72);
+  shade.fillRect(0, height - 96, width, 96);
+  shade.setDepth(-14);
+
   return { width, height };
 }
 
