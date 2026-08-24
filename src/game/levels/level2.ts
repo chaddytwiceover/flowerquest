@@ -39,6 +39,9 @@ export const level2: LevelDef = {
     { kind: "tulip", x: 980, y: 760 },
     { kind: "tulip", x: 400, y: 430 },
   ],
+  powerBlooms: [
+    { kind: "swift", x: 576, y: 880 },
+  ],
   hazards: [
     {
       kind: "beetle",

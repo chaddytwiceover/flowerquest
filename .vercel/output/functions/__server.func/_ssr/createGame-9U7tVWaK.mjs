@@ -1,6 +1,6 @@
-import { a as sfxUnlock, c as patchGameState, d as actions, f as attachInput, g as updateActions, h as setKeyOverride, i as sfxLose, l as LEVELS, m as setJoystick, n as sfxCollect, o as sfxWin, p as detachInput, r as sfxHurt, s as getGameState, u as getLevel } from "./routes-BjZdXzCw.mjs";
-import { a as __webpack_exports__Scene, i as __webpack_exports__Scale, n as __webpack_exports__Game, r as __webpack_exports__Math, t as __webpack_exports__AUTO } from "../_libs/phaser.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/createGame-_ERI9Vk1.js
+import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-DMEPrBIg.mjs";
+import { a as __webpack_exports__Scale, i as __webpack_exports__Math, n as __webpack_exports__BlendModes, o as __webpack_exports__Scene, r as __webpack_exports__Game, t as __webpack_exports__AUTO } from "../_libs/phaser.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/createGame-9U7tVWaK.js
 var GAME_HEIGHT = 1280;
 var BootScene = class extends __webpack_exports__Scene {
 	constructor() {
@@ -77,19 +77,37 @@ function updatePlayer(player, speed) {
 function placeCollectibles(scene, level) {
 	const flowers = [];
 	for (const spot of level.flowers) {
+		const glow = scene.add.sprite(spot.x, spot.y + 4, spot.kind);
+		glow.setOrigin(.5, .7);
+		glow.setAlpha(.32);
+		glow.setTint(14723386);
+		glow.setBlendMode(__webpack_exports__BlendModes.ADD);
+		glow.setDepth(spot.y - 2);
 		const flower = scene.physics.add.sprite(spot.x, spot.y, spot.kind);
 		const src = flower.height || 1;
-		flower.setScale(52 / src);
+		const scale = 52 / src;
+		flower.setScale(scale);
+		glow.setScale(scale * 1.5);
 		flower.setOrigin(.5, .7);
 		flower.body?.setAllowGravity(false);
 		flower.body?.setImmovable(true);
 		flower.body?.setCircle(Math.max(64, src * .32));
 		flower.setData("kind", spot.kind);
+		flower.setData("glow", glow);
 		flower.setDepth(spot.y);
 		scene.tweens.add({
-			targets: flower,
+			targets: [flower, glow],
 			y: spot.y - 7,
 			duration: 900 + Math.random() * 400,
+			yoyo: true,
+			repeat: -1,
+			ease: "Sine.easeInOut"
+		});
+		scene.tweens.add({
+			targets: glow,
+			alpha: .18,
+			scale: scale * 1.7,
+			duration: 1e3 + Math.random() * 300,
 			yoyo: true,
 			repeat: -1,
 			ease: "Sine.easeInOut"
@@ -110,20 +128,95 @@ function findNearbyCollectible(flowers, x, y, radius = 46) {
 	return null;
 }
 function createPest(scene, def) {
-	const sprite = scene.physics.add.sprite(def.x, def.y, "beetle", 0);
-	sprite.setScale(46 / 128);
-	sprite.setOrigin(.5, .7);
-	sprite.body?.setCircle(40, 24, 36);
+	const kind = def.kind;
+	let sprite;
+	let alertEmote;
+	if (kind === "bee") {
+		sprite = scene.physics.add.sprite(def.x, def.y, "bee-sprite");
+		sprite.setScale(.85);
+		sprite.setOrigin(.5, .5);
+		sprite.body?.setCircle(22, 10, 10);
+	} else if (kind === "wasp") {
+		sprite = scene.physics.add.sprite(def.x, def.y, "wasp-sprite");
+		sprite.setScale(.9);
+		sprite.setOrigin(.5, .5);
+		sprite.body?.setCircle(22, 10, 10);
+	} else {
+		sprite = scene.physics.add.sprite(def.x, def.y, "beetle", 0);
+		sprite.setScale(46 / 128);
+		sprite.setOrigin(.5, .7);
+		sprite.body?.setCircle(40, 24, 36);
+		if (scene.anims.exists("beetle-walk")) sprite.play("beetle-walk");
+	}
 	sprite.setDepth(def.y);
-	sprite.play("beetle-walk");
+	if (kind === "bee" || kind === "wasp") {
+		alertEmote = scene.add.image(def.x, def.y - 36, "alert-emote");
+		alertEmote.setScale(.8);
+		alertEmote.setDepth(def.y + 100);
+		alertEmote.setVisible(false);
+	}
+	const origin = def.guardZone ? {
+		x: def.guardZone.x,
+		y: def.guardZone.y
+	} : {
+		x: def.x,
+		y: def.y
+	};
 	return {
+		kind,
 		sprite,
-		patrol: def.patrol,
+		alertEmote,
+		patrol: def.patrol ?? (def.guardZone ? [{
+			x: def.guardZone.x,
+			y: def.guardZone.y
+		}] : [{
+			x: def.x,
+			y: def.y
+		}]),
 		index: 0,
-		speed: def.speed
+		speed: def.speed,
+		chaseSpeed: def.chaseSpeed ?? def.speed * 1.5,
+		origin,
+		state: kind === "wasp" ? "guard" : "patrol",
+		stateTimer: 0,
+		detectRadius: def.detectRadius ?? (kind === "wasp" ? 170 : 190),
+		leashRadius: def.leashRadius ?? (kind === "wasp" ? 230 : 320),
+		guardRadius: def.guardZone?.radius ?? 120
 	};
 }
-function updatePest(pest) {
+function jammedToward(sprite, dx, dy) {
+	const body = sprite.body;
+	if (!body) return false;
+	return dx < 0 && body.blocked.left || dx > 0 && body.blocked.right || dy < 0 && body.blocked.up || dy > 0 && body.blocked.down;
+}
+function updatePest(pest, playerX, playerY, deltaSec, isFrozen = false) {
+	const { sprite, alertEmote, kind } = pest;
+	if (!sprite.active) return;
+	if (isFrozen) {
+		sprite.setVelocity(0, 0);
+		sprite.setTint(8965375);
+		if (alertEmote) alertEmote.setVisible(false);
+		return;
+	}
+	sprite.clearTint();
+	if (alertEmote) {
+		alertEmote.setPosition(sprite.x, sprite.y - 34);
+		alertEmote.setDepth(sprite.y + 100);
+	}
+	if (kind === "beetle") {
+		updateBeetle(pest);
+		return;
+	}
+	if (kind === "bee") {
+		updateBee(pest, playerX, playerY, deltaSec);
+		return;
+	}
+	if (kind === "wasp") {
+		updateWasp(pest, playerX, playerY, deltaSec);
+		return;
+	}
+}
+function updateBeetle(pest) {
 	const { sprite, patrol, speed } = pest;
 	if (patrol.length === 0) {
 		sprite.setVelocity(0, 0);
@@ -133,12 +226,140 @@ function updatePest(pest) {
 	const dx = target.x - sprite.x;
 	const dy = target.y - sprite.y;
 	const dist = Math.hypot(dx, dy);
-	if (dist < 12) {
+	if (dist < 16 || jammedToward(sprite, dx, dy)) {
 		pest.index = (pest.index + 1) % patrol.length;
+		sprite.setVelocity(0, 0);
 		return;
 	}
 	sprite.setVelocity(dx / dist * speed, dy / dist * speed);
 	sprite.setFlipX(dx < 0);
+	sprite.setDepth(sprite.y);
+}
+function updateBee(pest, px, py, dt) {
+	const { sprite, alertEmote, patrol, speed, chaseSpeed, detectRadius, leashRadius, origin } = pest;
+	const distToPlayer = Math.hypot(px - sprite.x, py - sprite.y);
+	const distToOrigin = Math.hypot(origin.x - sprite.x, origin.y - sprite.y);
+	pest.stateTimer -= dt;
+	switch (pest.state) {
+		case "patrol":
+			if (alertEmote) alertEmote.setVisible(false);
+			if (distToPlayer < detectRadius) {
+				pest.state = "alert";
+				pest.stateTimer = .4;
+				sfxAlert();
+				if (alertEmote) {
+					alertEmote.setVisible(true);
+					alertEmote.setScale(1.2);
+				}
+				sprite.setVelocity(0, 0);
+				return;
+			}
+			if (patrol.length > 0) {
+				const target = patrol[pest.index % patrol.length];
+				const dx = target.x - sprite.x;
+				const dy = target.y - sprite.y;
+				const dist = Math.hypot(dx, dy);
+				if (dist < 16) pest.index = (pest.index + 1) % patrol.length;
+				else {
+					sprite.setVelocity(dx / dist * speed, dy / dist * speed);
+					sprite.setFlipX(dx < 0);
+				}
+			}
+			break;
+		case "alert":
+			sprite.setVelocity(0, 0);
+			if (alertEmote) alertEmote.setVisible(true);
+			if (pest.stateTimer <= 0) {
+				pest.state = "chase";
+				pest.stateTimer = 2.5;
+				if (alertEmote) alertEmote.setVisible(false);
+			}
+			break;
+		case "chase": {
+			if (alertEmote) alertEmote.setVisible(false);
+			if (pest.stateTimer <= 0 || distToPlayer > leashRadius || distToOrigin > leashRadius + 100) {
+				pest.state = "cooldown";
+				pest.stateTimer = 1.8;
+				return;
+			}
+			const dx = px - sprite.x;
+			const dy = py - sprite.y;
+			const dist = Math.max(1, Math.hypot(dx, dy));
+			sprite.setVelocity(dx / dist * chaseSpeed, dy / dist * chaseSpeed);
+			sprite.setFlipX(dx < 0);
+			break;
+		}
+		case "cooldown": {
+			if (alertEmote) alertEmote.setVisible(false);
+			const target = patrol[pest.index % patrol.length] || origin;
+			const dx = target.x - sprite.x;
+			const dy = target.y - sprite.y;
+			const dist = Math.hypot(dx, dy);
+			if (dist < 20 || pest.stateTimer <= 0) {
+				pest.state = "patrol";
+				pest.stateTimer = 0;
+			} else {
+				sprite.setVelocity(dx / dist * (speed * .7), dy / dist * (speed * .7));
+				sprite.setFlipX(dx < 0);
+			}
+			break;
+		}
+	}
+	sprite.setDepth(sprite.y);
+}
+function updateWasp(pest, px, py, dt) {
+	const { sprite, alertEmote, origin, speed, chaseSpeed, guardRadius, leashRadius } = pest;
+	const distToPlayer = Math.hypot(px - sprite.x, py - sprite.y);
+	const playerDistToOrigin = Math.hypot(px - origin.x, py - origin.y);
+	const waspDistToOrigin = Math.hypot(sprite.x - origin.x, sprite.y - origin.y);
+	pest.stateTimer -= dt;
+	switch (pest.state) {
+		case "guard": {
+			if (alertEmote) alertEmote.setVisible(false);
+			const hoverAngle = Date.now() / 350 % (Math.PI * 2);
+			const targetX = origin.x + Math.cos(hoverAngle) * 20;
+			const targetY = origin.y + Math.sin(hoverAngle) * 20;
+			const dx = targetX - sprite.x;
+			const dy = targetY - sprite.y;
+			sprite.setVelocity(dx * 2.5, dy * 2.5);
+			sprite.setFlipX(dx < 0);
+			if (playerDistToOrigin < guardRadius || distToPlayer < 110) {
+				pest.state = "aggro";
+				pest.stateTimer = 2;
+				sfxAlert();
+				if (alertEmote) alertEmote.setVisible(true);
+			}
+			break;
+		}
+		case "aggro": {
+			if (alertEmote) alertEmote.setVisible(true);
+			if (playerDistToOrigin > leashRadius || waspDistToOrigin > leashRadius || pest.stateTimer <= 0) {
+				pest.state = "return";
+				if (alertEmote) alertEmote.setVisible(false);
+				return;
+			}
+			const dx = px - sprite.x;
+			const dy = py - sprite.y;
+			const dist = Math.max(1, Math.hypot(dx, dy));
+			sprite.setVelocity(dx / dist * chaseSpeed, dy / dist * chaseSpeed);
+			sprite.setFlipX(dx < 0);
+			break;
+		}
+		case "return": {
+			if (alertEmote) alertEmote.setVisible(false);
+			const dx = origin.x - sprite.x;
+			const dy = origin.y - sprite.y;
+			const dist = Math.hypot(dx, dy);
+			if (dist < 18) {
+				pest.state = "guard";
+				sprite.setVelocity(0, 0);
+			} else {
+				sprite.setVelocity(dx / dist * (speed * 1.1), dy / dist * (speed * 1.1));
+				sprite.setFlipX(dx < 0);
+			}
+			break;
+		}
+	}
 	sprite.setDepth(sprite.y);
 }
 function placeHazards(scene, level) {
@@ -147,8 +368,8 @@ function placeHazards(scene, level) {
 		return createPest(scene, def);
 	});
 }
-function updateHazards(hazards) {
-	hazards.forEach(updatePest);
+function updateHazards(hazards, playerX = 0, playerY = 0, deltaSec = .016, isFrozen = false) {
+	hazards.forEach((hazard) => updatePest(hazard, playerX, playerY, deltaSec, isFrozen));
 }
 function stopHazards(hazards) {
 	hazards.forEach((hazard) => hazard.sprite.setVelocity(0, 0));
@@ -425,10 +646,152 @@ function shouldHintLocked(exit, now, cooldown = 2200) {
 	exit.lastHintAt = now;
 	return true;
 }
+var currentPowerUp = {
+	kind: null,
+	remainingSec: 0,
+	totalSec: 0
+};
+function activatePowerUp(kind, onHeal) {
+	if (kind === "heart") {
+		sfxPowerUp("heart");
+		if (onHeal) onHeal();
+		return;
+	}
+	sfxPowerUp(kind);
+	if (kind === "frost") sfxFreeze();
+	const duration = kind === "swift" ? 4 : 3;
+	currentPowerUp = {
+		kind,
+		remainingSec: duration,
+		totalSec: duration
+	};
+	patchGameState({
+		activePowerUp: kind,
+		powerUpRemaining: duration,
+		powerUpTotal: duration
+	});
+}
+function updatePowerUps(deltaSec) {
+	if (!currentPowerUp.kind) return {
+		speedMultiplier: 1,
+		isFrozen: false
+	};
+	currentPowerUp.remainingSec -= deltaSec;
+	if (currentPowerUp.remainingSec <= 0) {
+		currentPowerUp = {
+			kind: null,
+			remainingSec: 0,
+			totalSec: 0
+		};
+		patchGameState({
+			activePowerUp: null,
+			powerUpRemaining: 0,
+			powerUpTotal: 0
+		});
+		return {
+			speedMultiplier: 1,
+			isFrozen: false
+		};
+	}
+	patchGameState({
+		activePowerUp: currentPowerUp.kind,
+		powerUpRemaining: Math.max(0, currentPowerUp.remainingSec),
+		powerUpTotal: currentPowerUp.totalSec
+	});
+	return {
+		speedMultiplier: currentPowerUp.kind === "swift" ? 1.5 : 1,
+		isFrozen: currentPowerUp.kind === "frost"
+	};
+}
+function clearPowerUps() {
+	currentPowerUp = {
+		kind: null,
+		remainingSec: 0,
+		totalSec: 0
+	};
+	patchGameState({
+		activePowerUp: null,
+		powerUpRemaining: 0,
+		powerUpTotal: 0
+	});
+}
+function placePowerBlooms(scene, level) {
+	const blooms = [];
+	const spots = level.powerBlooms ?? [];
+	for (const spot of spots) {
+		const texKey = `power-${spot.kind}`;
+		const glow = scene.add.sprite(spot.x, spot.y, texKey);
+		glow.setOrigin(.5, .5);
+		glow.setAlpha(.4);
+		glow.setBlendMode(__webpack_exports__BlendModes.ADD);
+		glow.setDepth(spot.y - 2);
+		const bloom = scene.physics.add.sprite(spot.x, spot.y, texKey);
+		bloom.setScale(.85);
+		glow.setScale(1.2);
+		bloom.setOrigin(.5, .5);
+		bloom.body?.setAllowGravity(false);
+		bloom.body?.setImmovable(true);
+		bloom.body?.setCircle(28, 10, 10);
+		bloom.setData("kind", spot.kind);
+		bloom.setData("glow", glow);
+		bloom.setDepth(spot.y);
+		scene.tweens.add({
+			targets: [bloom, glow],
+			y: spot.y - 8,
+			duration: 800 + Math.random() * 300,
+			yoyo: true,
+			repeat: -1,
+			ease: "Sine.easeInOut"
+		});
+		scene.tweens.add({
+			targets: glow,
+			alpha: .15,
+			scale: 1.5,
+			duration: 700 + Math.random() * 300,
+			yoyo: true,
+			repeat: -1,
+			ease: "Sine.easeInOut"
+		});
+		blooms.push(bloom);
+	}
+	return blooms;
+}
+function collectPowerBloom(scene, bloom, onHeal) {
+	if (!bloom.active) return;
+	const kind = bloom.getData("kind");
+	const glow = bloom.getData("glow");
+	bloom.disableBody(true, false);
+	bloom.setActive(false);
+	scene.tweens.add({
+		targets: [bloom, glow].filter(Boolean),
+		scaleX: 1.6,
+		scaleY: 1.6,
+		alpha: 0,
+		duration: 260,
+		ease: "Cubic.easeOut",
+		onComplete: () => {
+			bloom.destroy();
+			glow?.destroy();
+		}
+	});
+	activatePowerUp(kind, onHeal);
+}
 function placeWorld(scene, level) {
 	const { width, height, boundsInset, mapKey } = level.environment;
 	scene.physics.world.setBounds(boundsInset, boundsInset, width - boundsInset * 2, height - boundsInset * 2);
-	scene.add.image(0, 0, mapKey).setOrigin(0, 0).setDisplaySize(width, height);
+	const ground = scene.add.image(0, 0, mapKey).setOrigin(0, 0);
+	ground.setDisplaySize(width, height);
+	ground.setDepth(-20);
+	const sunlight = scene.add.graphics();
+	sunlight.fillStyle(16249315, .09);
+	sunlight.fillEllipse(width * .28, height * .18, width * .9, height * .42);
+	sunlight.setBlendMode("SCREEN");
+	sunlight.setDepth(-15);
+	const shade = scene.add.graphics();
+	shade.fillStyle(1840658, .12);
+	shade.fillRect(0, 0, width, 72);
+	shade.fillRect(0, height - 96, width, 96);
+	shade.setDepth(-14);
 	return {
 		width,
 		height
@@ -446,6 +809,7 @@ var GameScene = class extends __webpack_exports__Scene {
 	player;
 	hazards = [];
 	flowers = [];
+	powerBlooms = [];
 	blockers;
 	exit = null;
 	water;
@@ -460,7 +824,9 @@ var GameScene = class extends __webpack_exports__Scene {
 		this.ended = false;
 		this.hazards = [];
 		this.flowers = [];
+		this.powerBlooms = [];
 		this.exit = null;
+		clearPowerUps();
 		applyLevelHud(this.level);
 	}
 	create() {
@@ -472,6 +838,7 @@ var GameScene = class extends __webpack_exports__Scene {
 		this.water = placeWater(this, this.level);
 		placeBridges(this, this.level);
 		this.flowers = placeCollectibles(this, this.level);
+		this.powerBlooms = placePowerBlooms(this, this.level);
 		this.hazards = placeHazards(this, this.level);
 		this.exit = placeExit(this, this.level, this.blockers);
 		this.player = createPlayer(this, this.level.playerSpawn.x, this.level.playerSpawn.y);
@@ -486,25 +853,42 @@ var GameScene = class extends __webpack_exports__Scene {
 		this.flowers.forEach((flower) => {
 			this.physics.add.overlap(this.player.sprite, flower, () => this.collectFlower(flower));
 		});
+		this.powerBlooms.forEach((bloom) => {
+			this.physics.add.overlap(this.player.sprite, bloom, () => {
+				collectPowerBloom(this, bloom, () => this.healPlayer());
+			});
+		});
 		followPlayer(this, this.player.sprite, this.level);
+		startMusic(this.level.music);
+		setMusicPaused(false);
 		this.wireControlsTest();
 	}
-	update() {
+	update(time, delta) {
 		if (this.ended) return;
 		if (getGameState().phase !== "playing") {
 			this.player.sprite.setVelocity(0, 0);
 			return;
 		}
+		const deltaSec = delta > 0 ? delta / 1e3 : .016;
+		const { speedMultiplier, isFrozen } = updatePowerUps(deltaSec);
 		updateActions();
-		updatePlayer(this.player, this.level.playerSpeed);
-		updateHazards(this.hazards);
-		updateWater(this.water, this.time.now);
+		updatePlayer(this.player, this.level.playerSpeed * speedMultiplier);
 		const px = this.player.sprite.x;
 		const py = this.player.sprite.y;
+		updateHazards(this.hazards, px, py, deltaSec, isFrozen);
+		updateWater(this.water, this.time.now);
 		const nearby = findNearbyCollectible(this.flowers, px, py);
 		if (nearby) this.collectFlower(nearby);
-		if (hazardTouches(this.hazards, px, py)) this.hitPlayer();
+		if (!isFrozen && hazardTouches(this.hazards, px, py)) this.hitPlayer();
 		this.checkExit(px, py);
+	}
+	healPlayer() {
+		const current = getGameState();
+		if (current.hearts < current.heartsMax) {
+			patchGameState({ hearts: Math.min(current.heartsMax, current.hearts + 1) });
+			this.cameras.main.flash(120, 100, 240, 120);
+			this.flashBanner("Heart restored! 💚", 1800);
+		}
 	}
 	checkExit(px, py) {
 		if (!this.exit || this.ended) return;
@@ -524,6 +908,7 @@ var GameScene = class extends __webpack_exports__Scene {
 	}
 	collectFlower(flower) {
 		if (!flower.active || this.ended) return;
+		const glow = flower.getData("glow");
 		flower.disableBody(true, false);
 		playPlayerAction(this.player, "collect", 420);
 		this.tweens.add({
@@ -534,6 +919,7 @@ var GameScene = class extends __webpack_exports__Scene {
 			yoyo: true
 		});
 		this.tweens.killTweensOf(flower);
+		if (glow) this.tweens.killTweensOf(glow);
 		this.tweens.add({
 			targets: flower,
 			scale: flower.scale * 1.35,
@@ -541,6 +927,14 @@ var GameScene = class extends __webpack_exports__Scene {
 			y: flower.y - 24,
 			duration: 220,
 			onComplete: () => flower.destroy()
+		});
+		if (glow) this.tweens.add({
+			targets: glow,
+			scale: glow.scale * 1.5,
+			alpha: 0,
+			y: glow.y - 20,
+			duration: 260,
+			onComplete: () => glow.destroy()
 		});
 		const burst = this.add.particles(flower.x, flower.y, "spark", {
 			speed: {
@@ -620,6 +1014,7 @@ var GameScene = class extends __webpack_exports__Scene {
 		setKeyOverride(null);
 		stopHazards(this.hazards);
 		clearBanner();
+		setMusicPaused(true);
 		if (result === "won") {
 			playPlayerAction(this.player, "win", 8e3);
 			sfxWin();
@@ -666,6 +1061,8 @@ var GameScene = class extends __webpack_exports__Scene {
 	cleanup() {
 		this.hazards = [];
 		this.flowers = [];
+		this.powerBlooms = [];
+		clearPowerUps();
 		this.exit = null;
 		this.bannerTimer?.remove(false);
 		detachInput();
@@ -741,6 +1138,7 @@ var PreloadScene = class extends __webpack_exports__Scene {
 		spark.fillCircle(4, 4, 4);
 		spark.generateTexture("spark", 8, 8);
 		spark.destroy();
+		generateProceduralTextures(this);
 		patchGameState({
 			assetsReady: true,
 			loadProgress: 1,
@@ -749,6 +1147,84 @@ var PreloadScene = class extends __webpack_exports__Scene {
 		this.scene.start("wait");
 	}
 };
+function generateProceduralTextures(scene) {
+	const alertG = scene.add.graphics();
+	alertG.fillStyle(16726832, .95);
+	alertG.fillCircle(16, 16, 14);
+	alertG.lineStyle(2, 16777215, 1);
+	alertG.strokeCircle(16, 16, 14);
+	alertG.fillStyle(16777215, 1);
+	alertG.fillRoundedRect(14, 7, 4, 10, 2);
+	alertG.fillCircle(16, 21, 2.2);
+	alertG.generateTexture("alert-emote", 32, 32);
+	alertG.destroy();
+	const beeG = scene.add.graphics();
+	beeG.fillStyle(13691135, .75);
+	beeG.fillEllipse(18, 14, 12, 6);
+	beeG.fillEllipse(30, 14, 12, 6);
+	beeG.fillStyle(16498733, 1);
+	beeG.fillEllipse(24, 24, 16, 22);
+	beeG.fillStyle(2171169, 1);
+	beeG.fillRect(16, 17, 16, 4);
+	beeG.fillRect(16, 24, 16, 4);
+	beeG.fillStyle(0, 1);
+	beeG.fillCircle(20, 15, 2);
+	beeG.fillCircle(28, 15, 2);
+	beeG.fillStyle(2171169, 1);
+	beeG.fillTriangle(21, 33, 27, 33, 24, 39);
+	beeG.generateTexture("bee-sprite", 48, 48);
+	beeG.destroy();
+	const waspG = scene.add.graphics();
+	waspG.fillStyle(13362167, .8);
+	waspG.fillEllipse(16, 12, 14, 5);
+	waspG.fillEllipse(32, 12, 14, 5);
+	waspG.fillStyle(15094016, 1);
+	waspG.fillEllipse(24, 24, 14, 24);
+	waspG.fillStyle(1706501, 1);
+	waspG.fillRect(18, 16, 12, 3);
+	waspG.fillRect(17, 22, 14, 3);
+	waspG.fillRect(18, 28, 12, 3);
+	waspG.fillStyle(1706501, 1);
+	waspG.fillTriangle(21, 34, 27, 34, 24, 43);
+	waspG.generateTexture("wasp-sprite", 48, 48);
+	waspG.destroy();
+	const swiftG = scene.add.graphics();
+	swiftG.fillStyle(16766287, .3);
+	swiftG.fillCircle(20, 20, 18);
+	swiftG.fillStyle(16763432, 1);
+	swiftG.fillCircle(20, 20, 12);
+	swiftG.fillStyle(16777215, 1);
+	swiftG.fillTriangle(20, 6, 17, 18, 23, 18);
+	swiftG.fillTriangle(20, 34, 17, 22, 23, 22);
+	swiftG.fillTriangle(6, 20, 18, 17, 18, 23);
+	swiftG.fillTriangle(34, 20, 22, 17, 22, 23);
+	swiftG.fillCircle(20, 20, 4);
+	swiftG.generateTexture("power-swift", 40, 40);
+	swiftG.destroy();
+	const frostG = scene.add.graphics();
+	frostG.fillStyle(5227511, .35);
+	frostG.fillCircle(20, 20, 18);
+	frostG.fillStyle(166097, 1);
+	frostG.fillCircle(20, 20, 12);
+	frostG.fillStyle(14808574, 1);
+	frostG.fillTriangle(20, 8, 12, 20, 28, 20);
+	frostG.fillTriangle(20, 32, 12, 20, 28, 20);
+	frostG.lineStyle(1.5, 16777215, .9);
+	frostG.strokeCircle(20, 20, 12);
+	frostG.generateTexture("power-frost", 40, 40);
+	frostG.destroy();
+	const heartG = scene.add.graphics();
+	heartG.fillStyle(6732650, .35);
+	heartG.fillCircle(20, 20, 18);
+	heartG.fillStyle(3046706, 1);
+	heartG.fillCircle(20, 20, 12);
+	heartG.fillStyle(8505220, 1);
+	heartG.fillEllipse(20, 20, 10, 16);
+	heartG.fillStyle(16777215, .9);
+	heartG.fillCircle(20, 17, 3);
+	heartG.generateTexture("power-heart", 40, 40);
+	heartG.destroy();
+}
 /** Quiet garden backdrop while the start overlay is showing. */
 var WaitScene = class extends __webpack_exports__Scene {
 	constructor() {
@@ -813,11 +1289,13 @@ function createFlowerQuest(parent) {
 			setJoystick(0, 0);
 			setKeyOverride(null);
 			game.scene.pause("game");
+			setMusicPaused(true);
 			patchGameState({ phase: "paused" });
 		},
 		resume() {
 			if (getGameState().phase !== "paused") return;
 			game.scene.resume("game");
+			setMusicPaused(false);
 			patchGameState({ phase: "playing" });
 		},
 		restart() {
@@ -827,6 +1305,7 @@ function createFlowerQuest(parent) {
 			setJoystick(0, 0);
 			if (game.scene.isActive("game") || game.scene.isPaused("game")) game.scene.stop("game");
 			game.scene.run("wait");
+			startMusic("title");
 			const menu = LEVELS[0];
 			patchGameState({
 				phase: "menu",
@@ -841,6 +1320,7 @@ function createFlowerQuest(parent) {
 		},
 		destroy() {
 			detachInput();
+			stopMusic();
 			game.destroy(true);
 		}
 	};

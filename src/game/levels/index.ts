@@ -4,9 +4,25 @@ import { level2 } from "./level2";
 import { level3 } from "./level3";
 import { level4 } from "./level4";
 import { level5 } from "./level5";
+import { level6 } from "./level6";
+import { level7 } from "./level7";
+import { level8 } from "./level8";
+import { level9 } from "./level9";
+import { level10 } from "./level10";
 
-/** Every playable level. Add a new file and push it here to expand. */
-export const LEVELS: LevelDef[] = [level1, level2, level3, level4, level5];
+/** Every playable level (1 to 10). */
+export const LEVELS: LevelDef[] = [
+  level1,
+  level2,
+  level3,
+  level4,
+  level5,
+  level6,
+  level7,
+  level8,
+  level9,
+  level10,
+];
 
 export function getLevel(id: string): LevelDef {
   const found = LEVELS.find((level) => level.id === id);
@@ -24,3 +40,4 @@ export function getNextLevel(currentId: string): LevelDef | undefined {
   const current = getLevel(currentId);
   return getLevelByNumber(current.number + 1);
 }
+

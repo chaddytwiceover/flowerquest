@@ -1,0 +1,178 @@
+import type { LevelDef } from "../types";
+
+/**
+ * Level 10 — The Queen's Garden 👑 (Grand Finale)
+ *
+ * Map is 1152×1728 (Royal Maze). 15 royal blooms, 3 beetles, 3 bees, 3 wasps, and the ultimate Royal Gate.
+ */
+export const level10: LevelDef = {
+  id: "level-10",
+  number: 10,
+  name: "The Queen's Garden",
+  objectiveText: "Collect 15 royal blooms and unlock the Grand Royal Gate!",
+  collectibleLabel: "Royal Blooms",
+  collectibleIcon: "rose",
+  environment: {
+    mapKey: "map-level-5",
+    mapUrl: "/game/maps/level5-base.jpg",
+    width: 1152,
+    height: 1728,
+    boundsInset: 40,
+  },
+  playerSpawn: { x: 576, y: 1580 },
+  playerSpeed: 165,
+  hearts: 3,
+  music: "queen",
+  completeOn: "reach-exit",
+  objectives: [{ type: "collect", collectible: "any", required: 15, label: "Royal Blooms" }],
+  exit: {
+    x: 576,
+    y: 150,
+    unlockAt: "all-flowers",
+    lockedHint: "Gather all 15 royal blooms to unlock the Royal Gate!",
+    unlockedHint: "The Grand Royal Gate has opened! You are the Master Botanist!",
+    unlockedObjective: "Step through the Grand Royal Gate!",
+  },
+  flowers: [
+    { kind: "rose", x: 420, y: 1480 },
+    { kind: "rose", x: 730, y: 1480 },
+    { kind: "tulip", x: 180, y: 1300 },
+    { kind: "tulip", x: 970, y: 1300 },
+    { kind: "sunflower", x: 300, y: 1050 },
+    { kind: "sunflower", x: 850, y: 1050 },
+    { kind: "rose", x: 576, y: 920 },
+    { kind: "bluebell", x: 100, y: 750 },
+    { kind: "bluebell", x: 1050, y: 750 },
+    { kind: "rose", x: 400, y: 680 },
+    { kind: "rose", x: 750, y: 680 },
+    { kind: "tulip", x: 250, y: 450 },
+    { kind: "tulip", x: 900, y: 450 },
+    { kind: "daisy", x: 420, y: 300 },
+    { kind: "daisy", x: 730, y: 300 },
+  ],
+  powerBlooms: [
+    { kind: "swift", x: 576, y: 1350 },
+    { kind: "frost", x: 180, y: 900 },
+    { kind: "frost", x: 970, y: 900 },
+    { kind: "heart", x: 576, y: 580 },
+  ],
+  hazards: [
+    {
+      kind: "beetle",
+      x: 350,
+      y: 1400,
+      speed: 46,
+      patrol: [
+        { x: 200, y: 1400 },
+        { x: 500, y: 1400 },
+      ],
+    },
+    {
+      kind: "beetle",
+      x: 800,
+      y: 1400,
+      speed: 46,
+      patrol: [
+        { x: 650, y: 1400 },
+        { x: 950, y: 1400 },
+      ],
+    },
+    {
+      kind: "beetle",
+      x: 576,
+      y: 800,
+      speed: 46,
+      patrol: [
+        { x: 450, y: 800 },
+        { x: 700, y: 800 },
+      ],
+    },
+    {
+      kind: "bee",
+      x: 250,
+      y: 1100,
+      speed: 56,
+      chaseSpeed: 195,
+      detectRadius: 185,
+      leashRadius: 300,
+      patrol: [
+        { x: 150, y: 1100 },
+        { x: 350, y: 1100 },
+      ],
+    },
+    {
+      kind: "bee",
+      x: 900,
+      y: 1100,
+      speed: 56,
+      chaseSpeed: 195,
+      detectRadius: 185,
+      leashRadius: 300,
+      patrol: [
+        { x: 800, y: 1100 },
+        { x: 1000, y: 1100 },
+      ],
+    },
+    {
+      kind: "bee",
+      x: 576,
+      y: 450,
+      speed: 58,
+      chaseSpeed: 200,
+      detectRadius: 190,
+      leashRadius: 300,
+      patrol: [
+        { x: 450, y: 450 },
+        { x: 700, y: 450 },
+      ],
+    },
+    {
+      kind: "wasp",
+      x: 120,
+      y: 650,
+      speed: 40,
+      chaseSpeed: 225,
+      guardZone: { x: 120, y: 650, radius: 130 },
+      detectRadius: 150,
+      leashRadius: 230,
+    },
+    {
+      kind: "wasp",
+      x: 1030,
+      y: 650,
+      speed: 40,
+      chaseSpeed: 225,
+      guardZone: { x: 1030, y: 650, radius: 130 },
+      detectRadius: 150,
+      leashRadius: 230,
+    },
+    {
+      kind: "wasp",
+      x: 576,
+      y: 250,
+      speed: 42,
+      chaseSpeed: 230,
+      guardZone: { x: 576, y: 250, radius: 140 },
+      detectRadius: 160,
+      leashRadius: 240,
+    },
+  ],
+  obstacles: [
+    { kind: "arch", x: 576, y: 1320, height: 150, collides: false },
+    { kind: "arch", x: 576, y: 430, height: 150, collides: false },
+  ],
+  walls: [
+    { x: 0, y: 0, w: 500, h: 96 },
+    { x: 652, y: 0, w: 500, h: 96 },
+  ],
+  completion: {
+    winKicker: "Royal Botanist Crowned! 👑",
+    winTitle: "Quest Complete!",
+    winBody:
+      "Monnie conquered all 10 garden realms and unlocked the Queen's Royal Gate! You have completed Flower Quest!",
+    loseKicker: "Defeated at the Throne",
+    loseTitle: "Out of hearts",
+    loseBody:
+      "Monnie gathered {collected} of {needed} royal blooms. Utilize Frost Petals and Swift Seeds to evade the Royal Guard!",
+  },
+};

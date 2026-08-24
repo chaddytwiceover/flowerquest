@@ -1,3 +1,5 @@
+import type { PowerUpKind } from "./types";
+
 export type Phase = "boot" | "menu" | "playing" | "paused" | "won" | "lost";
 
 export type ObjectiveProgress = {
@@ -25,6 +27,9 @@ export type GameSnapshot = {
   collectibleLabel: string | null;
   collectibleIcon: string;
   objectives: ObjectiveProgress[];
+  activePowerUp: PowerUpKind | null;
+  powerUpRemaining: number;
+  powerUpTotal: number;
 };
 
 const initial: GameSnapshot = {
@@ -44,6 +49,9 @@ const initial: GameSnapshot = {
   collectibleLabel: null,
   collectibleIcon: "daisy",
   objectives: [],
+  activePowerUp: null,
+  powerUpRemaining: 0,
+  powerUpTotal: 0,
 };
 
 let snapshot: GameSnapshot = { ...initial };
@@ -72,6 +80,9 @@ export function resetRunState(partial?: Partial<GameSnapshot>): void {
     hearts: snapshot.heartsMax,
     banner: null,
     gateUnlocked: false,
+    activePowerUp: null,
+    powerUpRemaining: 0,
+    powerUpTotal: 0,
     objectives: snapshot.objectives.map((o) => ({ ...o, collected: 0 })),
     ...partial,
   });

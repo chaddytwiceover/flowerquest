@@ -30,7 +30,7 @@ export function StartScreen({ onPlay }: Props) {
       <header className="relative z-10 flex items-center justify-between px-4 pt-5">
         <div>
           <p className="font-display text-xs tracking-[0.22em] text-gold uppercase">Flower Quest</p>
-          <p className="mt-1 text-[11px] font-extrabold uppercase text-cream/70">Five handcrafted gardens</p>
+          <p className="mt-1 text-[11px] font-extrabold uppercase text-cream/70">Ten Handcrafted Gardens • v3</p>
         </div>
         <div className="flex min-h-8 items-center gap-2">
           <MuteButton className="bg-soil/50 ring-1 ring-cream/20" />
@@ -79,11 +79,11 @@ export function StartScreen({ onPlay }: Props) {
           Flower Quest
         </h1>
         <p className="mt-4 max-w-[21rem] text-base leading-relaxed text-cream/90">
-          {levelSubtitle} Collect each bloom, slip past the patrols, and open the garden gate.
+          {levelSubtitle} Pick every bloom, grab power blooms, dodge patrols, and unlock the garden gate.
         </p>
-        <div className="mt-5 grid grid-cols-2 gap-2 text-center text-[11px] font-extrabold uppercase text-cream/85">
-          <div className="rounded-2xl bg-soil/45 px-3 py-2 ring-1 ring-cream/15 backdrop-blur-sm">WASD / arrows</div>
-          <div className="rounded-2xl bg-soil/45 px-3 py-2 ring-1 ring-cream/15 backdrop-blur-sm">Touch friendly</div>
+        <div className="mt-4 grid grid-cols-2 gap-2 text-center text-[11px] font-extrabold uppercase text-cream/85">
+          <div className="rounded-2xl bg-soil/45 px-3 py-2 ring-1 ring-cream/15 backdrop-blur-sm">WASD / Touch & Drag</div>
+          <div className="rounded-2xl bg-soil/45 px-3 py-2 ring-1 ring-cream/15 backdrop-blur-sm">⚡ Swift • ❄️ Frost • 💚 Heart</div>
         </div>
 
         <button

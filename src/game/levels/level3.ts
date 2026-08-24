@@ -44,6 +44,10 @@ export const level3: LevelDef = {
     { kind: "sunflower", x: 790, y: 300 },
     { kind: "sunflower", x: 330, y: 190 },
   ],
+  powerBlooms: [
+    { kind: "frost", x: 504, y: 1200 },
+    { kind: "heart", x: 790, y: 600 },
+  ],
   hazards: [
     {
       kind: "beetle",

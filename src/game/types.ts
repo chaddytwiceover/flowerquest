@@ -2,13 +2,18 @@ import type { MusicId } from "./audio";
 
 export type FlowerKind = "daisy" | "tulip" | "rose" | "sunflower" | "bluebell";
 export type ObstacleKind = "tree" | "bush" | "rock" | "stump" | "pot" | "arch";
-export type HazardKind = "beetle";
+export type HazardKind = "beetle" | "bee" | "wasp";
+export type PowerUpKind = "swift" | "frost" | "heart";
 export type CompleteOn = "collect-all" | "reach-exit";
 
 export type Point = { x: number; y: number };
 
 export type FlowerSpot = Point & {
   kind: FlowerKind;
+};
+
+export type PowerBloomDef = Point & {
+  kind: PowerUpKind;
 };
 
 export type CollectObjective = {
@@ -24,7 +29,15 @@ export type HazardDef = {
   x: number;
   y: number;
   speed: number;
-  patrol: Point[];
+  patrol?: Point[];
+  /** Guard area / origin for territorial wasps or bee hives */
+  guardZone?: { x: number; y: number; radius: number };
+  /** Detection distance to trigger alert/chase */
+  detectRadius?: number;
+  /** Max chase speed */
+  chaseSpeed?: number;
+  /** Distance from origin before giving up chase */
+  leashRadius?: number;
 };
 
 export type ObstacleDef = {
@@ -92,6 +105,7 @@ export type LevelDef = {
   playerSpeed: number;
   hearts: number;
   flowers: FlowerSpot[];
+  powerBlooms?: PowerBloomDef[];
   obstacles: ObstacleDef[];
   hazards: HazardDef[];
   walls: WallDef[];

@@ -43,6 +43,10 @@ export const level5: LevelDef = {
     { kind: "rose", x: 90, y: 680 }, // mild dead-end
     { kind: "rose", x: 1050, y: 200 }, // side path
   ],
+  powerBlooms: [
+    { kind: "frost", x: 576, y: 1150 },
+    { kind: "heart", x: 90, y: 450 },
+  ],
   hazards: [
     {
       kind: "beetle",
@@ -72,6 +76,19 @@ export const level5: LevelDef = {
       patrol: [
         { x: 500, y: 360 },
         { x: 650, y: 360 },
+      ],
+    },
+    {
+      kind: "bee",
+      x: 900,
+      y: 600,
+      speed: 55,
+      chaseSpeed: 185,
+      detectRadius: 180,
+      leashRadius: 290,
+      patrol: [
+        { x: 800, y: 600 },
+        { x: 1000, y: 600 },
       ],
     },
   ],

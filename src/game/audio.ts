@@ -3,7 +3,7 @@
  * No music files — each level is a short pentatonic pattern.
  */
 
-export type MusicId = "title" | "meadow" | "trail" | "crossing" | "twin" | "maze";
+export type MusicId = "title" | "meadow" | "trail" | "crossing" | "twin" | "maze" | "hollow" | "queen";
 
 type Theme = {
   bpm: number;
@@ -83,6 +83,25 @@ const THEMES: Record<MusicId, Theme> = {
     spark: [0, 0, 0, 76, 0, 0, 75, 0, 0, 0, 71, 0, 0, 0, 72, 0],
     bassType: "sine",
     leadType: "triangle",
+  },
+  hollow: {
+    bpm: 108,
+    steps: 16,
+    bass: [48, 48, 0, 52, 55, 0, 48, 52, 45, 45, 0, 48, 52, 0, 45, 48],
+    lead: [72, 76, 79, 76, 81, 79, 76, 72, 69, 72, 76, 79, 81, 84, 79, 76],
+    spark: [0, 84, 0, 88, 0, 84, 0, 0, 0, 81, 0, 84, 0, 88, 0, 84],
+    bassType: "triangle",
+    leadType: "triangle",
+  },
+  queen: {
+    bpm: 116,
+    steps: 16,
+    bass: [36, 0, 43, 0, 48, 0, 43, 36, 41, 0, 48, 0, 53, 0, 48, 41],
+    lead: [60, 67, 72, 67, 75, 72, 67, 60, 65, 72, 77, 72, 80, 77, 72, 65],
+    harmony: [67, 72, 75, 72, 79, 75, 72, 67, 72, 77, 80, 77, 84, 80, 77, 72],
+    spark: [84, 0, 87, 0, 91, 0, 87, 0, 89, 0, 92, 0, 96, 0, 92, 0],
+    bassType: "sawtooth",
+    leadType: "square",
   },
 };
 
@@ -286,3 +305,31 @@ export function sfxLose() {
   tone(247, 0.22, "sine", 0.05, 0.14);
   tone(196, 0.3, "sine", 0.05, 0.3);
 }
+
+export function sfxPowerUp(kind: "swift" | "frost" | "heart") {
+  if (kind === "swift") {
+    tone(659, 0.08, "triangle", 0.06, 0);
+    tone(880, 0.09, "triangle", 0.07, 0.06);
+    tone(1046, 0.16, "sine", 0.08, 0.12);
+  } else if (kind === "frost") {
+    tone(987, 0.12, "sine", 0.06, 0);
+    tone(1318, 0.2, "sine", 0.07, 0.08);
+    tone(1760, 0.25, "triangle", 0.05, 0.16);
+  } else if (kind === "heart") {
+    tone(523, 0.1, "sine", 0.06, 0);
+    tone(659, 0.1, "sine", 0.06, 0.08);
+    tone(784, 0.12, "sine", 0.07, 0.16);
+    tone(1046, 0.22, "sine", 0.08, 0.24);
+  }
+}
+
+export function sfxAlert() {
+  tone(880, 0.08, "square", 0.04, 0);
+  tone(1174, 0.1, "square", 0.05, 0.07);
+}
+
+export function sfxFreeze() {
+  tone(320, 0.12, "sawtooth", 0.04, 0);
+  tone(160, 0.18, "square", 0.04, 0.08);
+}
+

@@ -29,14 +29,14 @@ export function ResultCard({ onRestart, onMenu, onContinue }: Props) {
           <Trophy className="h-7 w-7" />
         </div>
         <p className="mt-5 font-display text-xs tracking-[0.22em] text-leaf uppercase">
-          {demoDone ? "Flower Quest" : won ? copy.winKicker : copy.loseKicker}
+          {demoDone ? "Grand Victory" : won ? copy.winKicker : copy.loseKicker}
         </p>
         <h2 className="mt-1 font-display text-3xl font-semibold">
-          {demoDone ? "Lite Demo complete" : won ? copy.winTitle : copy.loseTitle}
+          {demoDone ? "All 10 Gardens Complete!" : won ? copy.winTitle : copy.loseTitle}
         </h2>
         <p className="mt-3 text-soil/80">
           {demoDone
-            ? "You helped Monnie make it through all five gardens!"
+            ? "Crown Monnie as the Grand Royal Botanist! You have gathered all blooms across all 10 levels!"
             : fill(won ? copy.winBody : copy.loseBody, flowersCollected, flowersNeeded)}
         </p>
         <div className="mt-6 space-y-3">

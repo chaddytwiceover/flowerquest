@@ -11,8 +11,14 @@ export function placeHazards(scene: Phaser.Scene, level: LevelDef): HazardRef[] 
   });
 }
 
-export function updateHazards(hazards: HazardRef[]) {
-  hazards.forEach(updatePest);
+export function updateHazards(
+  hazards: HazardRef[],
+  playerX = 0,
+  playerY = 0,
+  deltaSec = 0.016,
+  isFrozen = false,
+) {
+  hazards.forEach((hazard) => updatePest(hazard, playerX, playerY, deltaSec, isFrozen));
 }
 
 export function stopHazards(hazards: HazardRef[]) {

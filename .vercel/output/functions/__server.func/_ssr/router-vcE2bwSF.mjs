@@ -3,7 +3,7 @@ import { R as require_react, f as createRouter, g as createRootRoute, h as creat
 import { n as __exportAll } from "./ssr.mjs";
 import { a as PostgresIntrospector, c as sql, i as PostgresAdapter, n as getKyselyDatabaseType, o as PostgresQueryCompiler, s as CompiledQuery, t as createKyselyAdapter } from "../_libs/@better-auth/kysely-adapter+[...].mjs";
 import { $t as runWithAdapter, A as base64Url, At as email, C as runWithEndpointContext, D as serializeSignedCookie, Dt as any, E as serializeCookie, Ft as optional, Gt as ATTR_CONTEXT, It as record, Jt as import_src, Kt as ATTR_HOOK_TYPE, Lt as string, M as decodeProtectedHeader, Mt as looseObject, N as jwtVerify, Nt as number, O as filterOutputFields, Ot as array, Pt as object, Qt as queueAfterTransactionHook, Rt as union, S as getCurrentAuthContext, T as toResponse, Wt as withSpan, Xt as getAuthTables, Yt as safeJSONParse, Zt as getCurrentAdapter, _ as createAuthMiddleware, _n as BetterAuthError, a as betterFetch, an as createRandomStringGenerator, b as hasRequestState, bn as defineErrorCodes, c as applyDefaultAccessTokenExpiry, cn as shouldPublishLog, d as findInvalidTrustedProxies, en as runWithTransaction, f as getIp, g as createAuthEndpoint, gn as APIError, h as normalizePathname, hn as isTest, i as refreshAccessToken, in as generateId, j as decodeJwt, jt as literal, kt as boolean, l as isLoopbackHost, mn as isProduction, mt as JWTExpired, n as socialProviders, nn as initGetModelName, nt as encode, on as createLogger, p as deprecate, pn as isDevelopment, qt as ATTR_OPERATION_ID, r as validateAuthorizationCode, rn as initGetFieldName, s as createAuthorizationURL, sn as logger, t as SocialProviderListEnum, tn as getBetterAuthVersion, u as createRateLimitKey, un as env, v as isAPIError, vn as kAPIErrorHeaderSymbol, w as createRouter$1, x as runWithRequestState, y as defineRequestState, yn as BASE_ERROR_CODES } from "../_libs/@better-auth/core+[...].mjs";
-import { t as TriangleAlert } from "../_libs/lucide-react.mjs";
+import { a as TriangleAlert } from "../_libs/lucide-react.mjs";
 import { n as string$1, t as boolean$1 } from "../_libs/zod.mjs";
 import { n as hkdf, t as sha256 } from "../_libs/noble__hashes.mjs";
 import { i as jwtDecrypt, n as EncryptJWT, r as SignJWT, t as calculateJwkThumbprint } from "../_libs/jose.mjs";
@@ -13,7 +13,7 @@ import { a as utf8ToBytes, i as managedNonce, n as bytesToHex, r as hexToBytes, 
 import { n as defu, t as createDefu } from "../_libs/defu.mjs";
 import { t as Pool } from "../_libs/pg.mjs";
 import { randomBytes } from "node:crypto";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BY1LCdca.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-vcE2bwSF.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function AppErrorComponent({ error }) {
@@ -282,8 +282,9 @@ function PreviewHostBridge() {
 	}, [router]);
 	return null;
 }
-var styles_default = "/assets/styles-B87VhdRm.css";
+var styles_default = "/assets/styles-C4C9B0Sg.css";
 var APP_NAME = "Monnie's Flower Quest";
+var APP_DESCRIPTION = "Guide Monnie through ten handcrafted gardens, collect every bloom, seize power blooms, dodge beetles, bees, and wasps, and unlock the garden gates.";
 var Route$3 = createRootRoute({
 	head: () => ({
 		meta: [
@@ -299,7 +300,39 @@ var Route$3 = createRootRoute({
 			},
 			{
 				name: "description",
-				content: "Help Monnie collect every flower in the meadow. Dodge the beetles."
+				content: APP_DESCRIPTION
+			},
+			{
+				property: "og:title",
+				content: APP_NAME
+			},
+			{
+				property: "og:description",
+				content: APP_DESCRIPTION
+			},
+			{
+				property: "og:type",
+				content: "website"
+			},
+			{
+				property: "og:image",
+				content: "/og.jpg"
+			},
+			{
+				name: "twitter:card",
+				content: "summary_large_image"
+			},
+			{
+				name: "twitter:title",
+				content: APP_NAME
+			},
+			{
+				name: "twitter:description",
+				content: APP_DESCRIPTION
+			},
+			{
+				name: "twitter:image",
+				content: "/x-banner.jpg"
 			}
 		],
 		links: [
@@ -332,9 +365,9 @@ var Route$3 = createRootRoute({
 		] })]
 	})
 });
-var $$splitComponentImporter$1 = () => import("./routes-BjZdXzCw.mjs").then((n) => n.t);
+var $$splitComponentImporter$1 = () => import("./routes-DMEPrBIg.mjs").then((n) => n.t);
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./login-CRj03fR9.mjs");
+var $$splitComponentImporter = () => import("./login-cAsLbS1t.mjs");
 var Route$1 = createFileRoute("/login")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 /**
 * Escapes a character if it has a special meaning in regular expressions
@@ -9052,7 +9085,7 @@ var tanstackStartCookies = () => {
 		}] }
 	};
 };
-var _0001_auth_default = "-- Better Auth schema (identity + sessions for \"Sign in with Grok\").\n--\n-- Generated by the Better Auth CLI for its Postgres adapter — DO NOT EDIT by\n-- hand. `@/lib/auth/server` runs Better Auth against these tables when\n-- DATABASE_URL is set. The columns are camelCase and MUST stay double-quoted so\n-- Postgres preserves the case Better Auth queries by.\n--\n-- Migrations in this folder are the single source of truth for your schema. They\n-- apply to Neon during the Vercel build (`npm run build`) and to the local\n-- PGLite fallback automatically on startup, so dev matches production. Applied\n-- files are recorded by name in `_migrations` and NEVER run again.\n--\n-- Put YOUR app's schema in NEW ordered files (0002_*.sql, 0003_*.sql, …), never\n-- in this one. For app tables, prefer snake_case and give per-user tables a\n-- `user_id TEXT NOT NULL` column (TEXT, not UUID — the preview dev user id is\n-- the string 'dev-user'), then scope every query to the authenticated user\n-- server-side (see the `neon` + `auth` skills and src/lib/auth/verify.server.ts).\n\ncreate table if not exists \"user\" (\n  \"id\" text not null primary key,\n  \"name\" text not null,\n  \"email\" text not null unique,\n  \"emailVerified\" boolean not null,\n  \"image\" text,\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\n  \"updatedAt\" timestamptz default CURRENT_TIMESTAMP not null\n);\n\ncreate table if not exists \"session\" (\n  \"id\" text not null primary key,\n  \"expiresAt\" timestamptz not null,\n  \"token\" text not null unique,\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\n  \"updatedAt\" timestamptz not null,\n  \"ipAddress\" text,\n  \"userAgent\" text,\n  \"userId\" text not null references \"user\" (\"id\") on delete cascade\n);\n\ncreate table if not exists \"account\" (\n  \"id\" text not null primary key,\n  \"accountId\" text not null,\n  \"providerId\" text not null,\n  \"userId\" text not null references \"user\" (\"id\") on delete cascade,\n  \"accessToken\" text,\n  \"refreshToken\" text,\n  \"idToken\" text,\n  \"accessTokenExpiresAt\" timestamptz,\n  \"refreshTokenExpiresAt\" timestamptz,\n  \"scope\" text,\n  \"password\" text,\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\n  \"updatedAt\" timestamptz not null\n);\n\ncreate table if not exists \"verification\" (\n  \"id\" text not null primary key,\n  \"identifier\" text not null,\n  \"value\" text not null,\n  \"expiresAt\" timestamptz not null,\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\n  \"updatedAt\" timestamptz default CURRENT_TIMESTAMP not null\n);\n\ncreate index if not exists \"session_userId_idx\" on \"session\" (\"userId\");\ncreate index if not exists \"account_userId_idx\" on \"account\" (\"userId\");\ncreate index if not exists \"verification_identifier_idx\" on \"verification\" (\"identifier\");\n";
+var _0001_auth_default = "-- Better Auth schema (identity + sessions for \"Sign in with Grok\").\r\n--\r\n-- Generated by the Better Auth CLI for its Postgres adapter — DO NOT EDIT by\r\n-- hand. `@/lib/auth/server` runs Better Auth against these tables when\r\n-- DATABASE_URL is set. The columns are camelCase and MUST stay double-quoted so\r\n-- Postgres preserves the case Better Auth queries by.\r\n--\r\n-- Migrations in this folder are the single source of truth for your schema. They\r\n-- apply to Neon during the Vercel build (`npm run build`) and to the local\r\n-- PGLite fallback automatically on startup, so dev matches production. Applied\r\n-- files are recorded by name in `_migrations` and NEVER run again.\r\n--\r\n-- Put YOUR app's schema in NEW ordered files (0002_*.sql, 0003_*.sql, …), never\r\n-- in this one. For app tables, prefer snake_case and give per-user tables a\r\n-- `user_id TEXT NOT NULL` column (TEXT, not UUID — the preview dev user id is\r\n-- the string 'dev-user'), then scope every query to the authenticated user\r\n-- server-side (see the `neon` + `auth` skills and src/lib/auth/verify.server.ts).\r\n\r\ncreate table if not exists \"user\" (\r\n  \"id\" text not null primary key,\r\n  \"name\" text not null,\r\n  \"email\" text not null unique,\r\n  \"emailVerified\" boolean not null,\r\n  \"image\" text,\r\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\r\n  \"updatedAt\" timestamptz default CURRENT_TIMESTAMP not null\r\n);\r\n\r\ncreate table if not exists \"session\" (\r\n  \"id\" text not null primary key,\r\n  \"expiresAt\" timestamptz not null,\r\n  \"token\" text not null unique,\r\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\r\n  \"updatedAt\" timestamptz not null,\r\n  \"ipAddress\" text,\r\n  \"userAgent\" text,\r\n  \"userId\" text not null references \"user\" (\"id\") on delete cascade\r\n);\r\n\r\ncreate table if not exists \"account\" (\r\n  \"id\" text not null primary key,\r\n  \"accountId\" text not null,\r\n  \"providerId\" text not null,\r\n  \"userId\" text not null references \"user\" (\"id\") on delete cascade,\r\n  \"accessToken\" text,\r\n  \"refreshToken\" text,\r\n  \"idToken\" text,\r\n  \"accessTokenExpiresAt\" timestamptz,\r\n  \"refreshTokenExpiresAt\" timestamptz,\r\n  \"scope\" text,\r\n  \"password\" text,\r\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\r\n  \"updatedAt\" timestamptz not null\r\n);\r\n\r\ncreate table if not exists \"verification\" (\r\n  \"id\" text not null primary key,\r\n  \"identifier\" text not null,\r\n  \"value\" text not null,\r\n  \"expiresAt\" timestamptz not null,\r\n  \"createdAt\" timestamptz default CURRENT_TIMESTAMP not null,\r\n  \"updatedAt\" timestamptz default CURRENT_TIMESTAMP not null\r\n);\r\n\r\ncreate index if not exists \"session_userId_idx\" on \"session\" (\"userId\");\r\ncreate index if not exists \"account_userId_idx\" on \"account\" (\"userId\");\r\ncreate index if not exists \"verification_identifier_idx\" on \"verification\" (\"identifier\");\r\n";
 var rawDatabaseUrl = typeof process !== "undefined" ? process.env.DATABASE_URL : void 0;
 var databaseUrl$1 = rawDatabaseUrl && rawDatabaseUrl.trim() ? rawDatabaseUrl : void 0;
 /**

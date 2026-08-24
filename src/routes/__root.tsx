@@ -5,7 +5,7 @@ import appCss from "../styles.css?url";
 
 const APP_NAME = "Monnie's Flower Quest";
 const APP_DESCRIPTION =
-  "Guide Monnie through five handcrafted gardens, collect every flower, dodge the beetles, and open the gate.";
+  "Guide Monnie through ten handcrafted gardens, collect every bloom, seize power blooms, dodge beetles, bees, and wasps, and unlock the garden gates.";
 
 export const Route = createRootRoute({
   head: () => ({

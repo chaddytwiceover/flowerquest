@@ -28,6 +28,8 @@ import {
   syncExitLock,
   type ExitRef,
 } from "../systems/exit";
+import { placePowerBlooms, collectPowerBloom, type PowerBloomRef } from "../systems/powerBlooms";
+import { clearPowerUps, updatePowerUps } from "../systems/powerups";
 import { followPlayer, placeWorld } from "../systems/world";
 import { getGameState, patchGameState } from "../state";
 import type { LevelDef } from "../types";
@@ -39,6 +41,7 @@ export class GameScene extends Phaser.Scene {
   private player!: PlayerRef;
   private hazards: HazardRef[] = [];
   private flowers: CollectibleRef[] = [];
+  private powerBlooms: PowerBloomRef[] = [];
   private blockers!: Phaser.Physics.Arcade.StaticGroup;
   private exit: ExitRef | null = null;
   private water!: WaterRuntime;
@@ -55,7 +58,9 @@ export class GameScene extends Phaser.Scene {
     this.ended = false;
     this.hazards = [];
     this.flowers = [];
+    this.powerBlooms = [];
     this.exit = null;
+    clearPowerUps();
     applyLevelHud(this.level);
   }
 
@@ -70,6 +75,7 @@ export class GameScene extends Phaser.Scene {
     placeBridges(this, this.level);
 
     this.flowers = placeCollectibles(this, this.level);
+    this.powerBlooms = placePowerBlooms(this, this.level);
     this.hazards = placeHazards(this, this.level);
     this.exit = placeExit(this, this.level, this.blockers);
 
@@ -86,6 +92,11 @@ export class GameScene extends Phaser.Scene {
     this.flowers.forEach((flower) => {
       this.physics.add.overlap(this.player.sprite, flower, () => this.collectFlower(flower));
     });
+    this.powerBlooms.forEach((bloom) => {
+      this.physics.add.overlap(this.player.sprite, bloom, () => {
+        collectPowerBloom(this, bloom, () => this.healPlayer());
+      });
+    });
 
     followPlayer(this, this.player.sprite, this.level);
     startMusic(this.level.music);
@@ -93,27 +104,40 @@ export class GameScene extends Phaser.Scene {
     this.wireControlsTest();
   }
 
-  update() {
+  update(time: number, delta: number) {
     if (this.ended) return;
     if (getGameState().phase !== "playing") {
       this.player.sprite.setVelocity(0, 0);
       return;
     }
 
+    const deltaSec = delta > 0 ? delta / 1000 : 0.016;
+    const { speedMultiplier, isFrozen } = updatePowerUps(deltaSec);
+
     updateActions();
-    updatePlayer(this.player, this.level.playerSpeed);
-    updateHazards(this.hazards);
-    updateWater(this.water, this.time.now);
+    updatePlayer(this.player, this.level.playerSpeed * speedMultiplier);
 
     const px = this.player.sprite.x;
     const py = this.player.sprite.y;
 
+    updateHazards(this.hazards, px, py, deltaSec, isFrozen);
+    updateWater(this.water, this.time.now);
+
     const nearby = findNearbyCollectible(this.flowers, px, py);
     if (nearby) this.collectFlower(nearby);
 
-    if (hazardTouches(this.hazards, px, py)) this.hitPlayer();
+    if (!isFrozen && hazardTouches(this.hazards, px, py)) this.hitPlayer();
 
     this.checkExit(px, py);
+  }
+
+  private healPlayer() {
+    const current = getGameState();
+    if (current.hearts < current.heartsMax) {
+      patchGameState({ hearts: Math.min(current.heartsMax, current.hearts + 1) });
+      this.cameras.main.flash(120, 100, 240, 120);
+      this.flashBanner("Heart restored! 💚", 1800);
+    }
   }
 
   private checkExit(px: number, py: number) {
@@ -289,6 +313,8 @@ export class GameScene extends Phaser.Scene {
   private cleanup() {
     this.hazards = [];
     this.flowers = [];
+    this.powerBlooms = [];
+    clearPowerUps();
     this.exit = null;
     this.bannerTimer?.remove(false);
     detachInput();

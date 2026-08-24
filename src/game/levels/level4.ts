@@ -45,6 +45,10 @@ export const level4: LevelDef = {
     { kind: "bluebell", x: 870, y: 900 },
     { kind: "bluebell", x: 930, y: 500 },
   ],
+  powerBlooms: [
+    { kind: "swift", x: 280, y: 700 },
+    { kind: "frost", x: 870, y: 700 },
+  ],
   hazards: [
     {
       kind: "beetle",
@@ -74,6 +78,19 @@ export const level4: LevelDef = {
       patrol: [
         { x: 500, y: 760 },
         { x: 660, y: 760 },
+      ],
+    },
+    {
+      kind: "bee",
+      x: 576,
+      y: 450,
+      speed: 55,
+      chaseSpeed: 180,
+      detectRadius: 180,
+      leashRadius: 280,
+      patrol: [
+        { x: 480, y: 450 },
+        { x: 670, y: 450 },
       ],
     },
   ],
