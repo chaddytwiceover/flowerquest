@@ -1,5 +1,5 @@
 import * as Phaser from "phaser";
-import type { LevelDef, PowerBloomDef, PowerUpKind } from "../types";
+import type { LevelDef, PowerUpKind } from "../types";
 import { activatePowerUp } from "./powerups";
 
 export type PowerBloomRef = Phaser.Physics.Arcade.Sprite;

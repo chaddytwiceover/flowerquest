@@ -278,35 +278,34 @@ export class GameScene extends Phaser.Scene {
   }
 
   private wireControlsTest() {
-    const scene = this;
     window.__controlsTest = {
-      getX: () => scene.player?.sprite.x ?? 0,
-      getY: () => scene.player?.sprite.y ?? 0,
-      getVx: () => scene.player?.sprite.body?.velocity.x ?? 0,
-      getVy: () => scene.player?.sprite.body?.velocity.y ?? 0,
+      getX: () => this.player?.sprite.x ?? 0,
+      getY: () => this.player?.sprite.y ?? 0,
+      getVx: () => this.player?.sprite.body?.velocity.x ?? 0,
+      getVy: () => this.player?.sprite.body?.velocity.y ?? 0,
       setKeys: (codes: string[]) => setKeyOverride(codes.length ? codes : null),
       setJoystick: (x: number, y: number) => setJoystick(x, y),
       setPosition: (x: number, y: number) => {
-        scene.player.sprite.setPosition(x, y);
-        scene.player.sprite.body?.reset(x, y);
+        this.player.sprite.setPosition(x, y);
+        this.player.sprite.body?.reset(x, y);
       },
-      flowerCount: () => flowersRemaining(scene.flowers),
+      flowerCount: () => flowersRemaining(this.flowers),
       getHearts: () => getGameState().hearts,
       getCollected: () => getGameState().flowersCollected,
-      getHazards: () => hazardPositions(scene.hazards),
-      getLevelId: () => scene.level?.id,
+      getHazards: () => hazardPositions(this.hazards),
+      getLevelId: () => this.level?.id,
       getSubtitle: () => getGameState().levelSubtitle,
       getBanner: () => getGameState().banner,
-      isGateUnlocked: () => !scene.exit || !scene.exit.locked,
+      isGateUnlocked: () => !this.exit || !this.exit.locked,
       getExit: () =>
-        scene.exit
-          ? { x: scene.exit.sprite.x, y: scene.exit.sprite.y, locked: scene.exit.locked }
+        this.exit
+          ? { x: this.exit.sprite.x, y: this.exit.sprite.y, locked: this.exit.locked }
           : null,
       getPhase: () => getGameState().phase,
-      getWater: () => scene.level.water ?? [],
-      getBridges: () => scene.level.bridges ?? [],
+      getWater: () => this.level.water ?? [],
+      getBridges: () => this.level.bridges ?? [],
       getObjectives: () => getGameState().objectives,
-      getWalls: () => scene.level.walls,
+      getWalls: () => this.level.walls,
     };
   }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Sparkles, Zap, Snowflake, Heart, Compass, ShieldAlert } from "lucide-react";
+import { Play, Sparkles, Zap, Snowflake, Heart } from "lucide-react";
 import { unlockAudio, startMusic } from "@/game/audio";
 import { LEVELS } from "@/game/levels";
 import { useGameState } from "./useGameState";
