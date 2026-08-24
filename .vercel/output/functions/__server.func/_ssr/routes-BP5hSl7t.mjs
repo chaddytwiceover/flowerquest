@@ -2,8 +2,8 @@ import { o as __toESM } from "../_runtime.mjs";
 import { R as require_react, _ as Link, y as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as __exportAll } from "./ssr.mjs";
 import { c as Snowflake, d as Pause, f as House, i as Trophy, l as RotateCcw, n as VolumeX, o as Sprout, p as ArrowRight, r as Volume2, s as Sparkles, t as Zap, u as Play } from "../_libs/lucide-react.mjs";
-import { r as signOut, t as authClient } from "./client-BgVZtxiN.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DMEPrBIg.js
+import { r as signOut, t as authClient } from "./client-BnonC71s.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BP5hSl7t.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var MUTE_KEY = "flower-quest-muted";
@@ -3601,7 +3601,7 @@ function PhaserCanvas({ onReady }) {
 		if (!parentRef.current) return;
 		let cancelled = false;
 		let api = null;
-		import("./createGame-9U7tVWaK.mjs").then(({ createFlowerQuest }) => {
+		import("./createGame-CRVU9wiF.mjs").then(({ createFlowerQuest }) => {
 			if (cancelled || !parentRef.current) return;
 			api = createFlowerQuest(parentRef.current);
 			onReady(api);
@@ -3883,13 +3883,13 @@ function FlowerQuestApp() {
 		apiRef.current?.startLevel("level-1");
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
-		className: "relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_25%_10%,#4f8f5c_0,#245c3a_28%,#3a271c_74%)] px-0 py-0 text-cream sm:px-6 sm:py-5",
+		className: "relative flex h-full min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_25%_10%,#4f8f5c_0,#245c3a_28%,#3a271c_74%)] px-0 py-0 text-cream sm:px-6 sm:py-5",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 opacity-55 [background-image:linear-gradient(120deg,rgb(247_241_227_/_0.10)_1px,transparent_1px),linear-gradient(300deg,rgb(224_169_58_/_0.10)_1px,transparent_1px)] [background-size:44px_44px]" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -left-20 top-16 hidden h-80 w-80 rounded-full border border-cream/15 sm:block" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -right-24 bottom-10 hidden h-96 w-96 rounded-full border border-gold/20 sm:block" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative h-[100dvh] w-full max-w-[430px] sm:h-[calc(100dvh-2.5rem)] sm:max-h-[900px]",
+				className: "relative h-full min-h-full w-full max-w-[430px] sm:h-[calc(100dvh-2.5rem)] sm:max-h-[900px]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -inset-2 hidden rounded-[2rem] bg-cream/10 shadow-[0_24px_80px_rgb(0_0_0_/_0.35)] sm:block" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "game-shell relative h-full w-full overflow-hidden bg-moss shadow-[0_18px_70px_rgb(0_0_0_/_0.34)] sm:rounded-[1.65rem] sm:ring-1 sm:ring-cream/25",
 					children: [

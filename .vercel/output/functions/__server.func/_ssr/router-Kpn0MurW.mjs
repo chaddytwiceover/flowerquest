@@ -13,7 +13,7 @@ import { a as utf8ToBytes, i as managedNonce, n as bytesToHex, r as hexToBytes, 
 import { n as defu, t as createDefu } from "../_libs/defu.mjs";
 import { t as Pool } from "../_libs/pg.mjs";
 import { randomBytes } from "node:crypto";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-vcE2bwSF.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-Kpn0MurW.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function AppErrorComponent({ error }) {
@@ -282,7 +282,7 @@ function PreviewHostBridge() {
 	}, [router]);
 	return null;
 }
-var styles_default = "/assets/styles-C4C9B0Sg.css";
+var styles_default = "/assets/styles-BbPuQell.css";
 var APP_NAME = "Monnie's Flower Quest";
 var APP_DESCRIPTION = "Guide Monnie through ten handcrafted gardens, collect every bloom, seize power blooms, dodge beetles, bees, and wasps, and unlock the garden gates.";
 var Route$3 = createRootRoute({
@@ -365,9 +365,9 @@ var Route$3 = createRootRoute({
 		] })]
 	})
 });
-var $$splitComponentImporter$1 = () => import("./routes-DMEPrBIg.mjs").then((n) => n.t);
+var $$splitComponentImporter$1 = () => import("./routes-BP5hSl7t.mjs").then((n) => n.t);
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./login-cAsLbS1t.mjs");
+var $$splitComponentImporter = () => import("./login-9RImTpzT.mjs");
 var Route$1 = createFileRoute("/login")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 /**
 * Escapes a character if it has a special meaning in regular expressions

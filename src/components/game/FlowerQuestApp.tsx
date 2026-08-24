@@ -30,12 +30,12 @@ export function FlowerQuestApp() {
   };
 
   return (
-    <main className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_25%_10%,#4f8f5c_0,#245c3a_28%,#3a271c_74%)] px-0 py-0 text-cream sm:px-6 sm:py-5">
+    <main className="relative flex h-full min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_25%_10%,#4f8f5c_0,#245c3a_28%,#3a271c_74%)] px-0 py-0 text-cream sm:px-6 sm:py-5">
       <div className="pointer-events-none absolute inset-0 opacity-55 [background-image:linear-gradient(120deg,rgb(247_241_227_/_0.10)_1px,transparent_1px),linear-gradient(300deg,rgb(224_169_58_/_0.10)_1px,transparent_1px)] [background-size:44px_44px]" />
       <div className="pointer-events-none absolute -left-20 top-16 hidden h-80 w-80 rounded-full border border-cream/15 sm:block" />
       <div className="pointer-events-none absolute -right-24 bottom-10 hidden h-96 w-96 rounded-full border border-gold/20 sm:block" />
 
-      <div className="relative h-[100dvh] w-full max-w-[430px] sm:h-[calc(100dvh-2.5rem)] sm:max-h-[900px]">
+      <div className="relative h-full min-h-full w-full max-w-[430px] sm:h-[calc(100dvh-2.5rem)] sm:max-h-[900px]">
         <div className="pointer-events-none absolute -inset-2 hidden rounded-[2rem] bg-cream/10 shadow-[0_24px_80px_rgb(0_0_0_/_0.35)] sm:block" />
         <div className="game-shell relative h-full w-full overflow-hidden bg-moss shadow-[0_18px_70px_rgb(0_0_0_/_0.34)] sm:rounded-[1.65rem] sm:ring-1 sm:ring-cream/25">
           <PhaserCanvas onReady={onReady} />

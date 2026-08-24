@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-CXhYXrZS.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-Bp5iAby-.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "C:/Users/thech/OneDrive/Documents/IONOS/flowerquest/src/routes/__root.tsx",
@@ -7,22 +7,22 @@ var tsrStartManifest = () => ({ routes: {
 			"/login",
 			"/api/auth/$"
 		],
-		preloads: ["/assets/index-DNyt5V9d.js"],
+		preloads: ["/assets/index-DUTni-IG.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-DNyt5V9d.js"
+			src: "/assets/index-DUTni-IG.js"
 		} }]
 	},
 	"/": {
 		filePath: "C:/Users/thech/OneDrive/Documents/IONOS/flowerquest/src/routes/index.tsx",
 		children: void 0,
-		preloads: ["/assets/routes-LHwLj0Nc.js", "/assets/client-BoMjp3O9.js"]
+		preloads: ["/assets/routes-YXHu97tU.js", "/assets/client-DJnH3uQ6.js"]
 	},
 	"/login": {
 		filePath: "C:/Users/thech/OneDrive/Documents/IONOS/flowerquest/src/routes/login.tsx",
 		children: void 0,
-		preloads: ["/assets/login-CkJunvXD.js", "/assets/client-BoMjp3O9.js"]
+		preloads: ["/assets/login-D_AFwe8W.js", "/assets/client-DJnH3uQ6.js"]
 	}
 } });
 //#endregion
