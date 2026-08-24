@@ -24,4 +24,7 @@ declare module "lucide-react" {
   export const TriangleAlert: LucideIcon;
   export const RefreshCw: LucideIcon;
   export const Sprout: LucideIcon;
+  export const Heart: LucideIcon;
+  export const Compass: LucideIcon;
+  export const ShieldAlert: LucideIcon;
 }

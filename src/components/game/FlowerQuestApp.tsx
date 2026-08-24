@@ -24,9 +24,9 @@ export function FlowerQuestApp() {
     return () => document.removeEventListener("visibilitychange", onHide);
   }, []);
 
-  const play = () => {
+  const play = (levelId = "level-1") => {
     unlockAudio();
-    apiRef.current?.startLevel("level-1");
+    apiRef.current?.startLevel(levelId);
   };
 
   return (

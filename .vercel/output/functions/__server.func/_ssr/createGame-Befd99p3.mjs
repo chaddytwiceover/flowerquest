@@ -1,6 +1,6 @@
-import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-BP5hSl7t.mjs";
+import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-DWbFBSRH.mjs";
 import { a as __webpack_exports__Scale, i as __webpack_exports__Math, n as __webpack_exports__BlendModes, o as __webpack_exports__Scene, r as __webpack_exports__Game, t as __webpack_exports__AUTO } from "../_libs/phaser.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/createGame-CRVU9wiF.js
+//#region node_modules/.nitro/vite/services/ssr/assets/createGame-Befd99p3.js
 var GAME_HEIGHT = 1280;
 var BootScene = class extends __webpack_exports__Scene {
 	constructor() {
@@ -1225,8 +1225,10 @@ function generateProceduralTextures(scene) {
 	heartG.generateTexture("power-heart", 40, 40);
 	heartG.destroy();
 }
-/** Quiet garden backdrop while the start overlay is showing. */
+/** Dynamic living garden backdrop while the start overlay is showing. */
 var WaitScene = class extends __webpack_exports__Scene {
+	bee;
+	beeAngle = 0;
 	constructor() {
 		super("wait");
 	}
@@ -1234,8 +1236,106 @@ var WaitScene = class extends __webpack_exports__Scene {
 		const mapKey = LEVELS[0].environment.mapKey;
 		const map = this.add.image(360, GAME_HEIGHT / 2, mapKey);
 		const scale = Math.max(720 / map.width, GAME_HEIGHT / map.height);
-		map.setScale(scale * 1.08);
-		map.setAlpha(.95);
+		map.setScale(scale * 1.06);
+		map.setAlpha(.92);
+		this.tweens.add({
+			targets: map,
+			scaleX: scale * 1.12,
+			scaleY: scale * 1.12,
+			duration: 7e3,
+			yoyo: true,
+			repeat: -1,
+			ease: "Sine.easeInOut"
+		});
+		this.add.particles(0, 0, "spark", {
+			x: {
+				min: 0,
+				max: 720
+			},
+			y: {
+				min: GAME_HEIGHT + 10,
+				max: GAME_HEIGHT + 30
+			},
+			speedY: {
+				min: -25,
+				max: -50
+			},
+			speedX: {
+				min: -15,
+				max: 15
+			},
+			scale: {
+				start: .7,
+				end: .1
+			},
+			alpha: {
+				start: .6,
+				end: 0
+			},
+			tint: [
+				14723386,
+				16249315,
+				8505220,
+				5227511
+			],
+			lifespan: 5e3,
+			frequency: 220
+		}).setDepth(10);
+		[
+			{
+				key: "power-swift",
+				x: 158.4,
+				y: GAME_HEIGHT * .32,
+				delay: 0
+			},
+			{
+				key: "power-frost",
+				x: 561.6,
+				y: GAME_HEIGHT * .28,
+				delay: 400
+			},
+			{
+				key: "power-heart",
+				x: 590.4,
+				y: GAME_HEIGHT * .68,
+				delay: 800
+			}
+		].forEach((p) => {
+			if (this.textures.exists(p.key)) {
+				const icon = this.add.image(p.x, p.y, p.key);
+				icon.setScale(.75);
+				icon.setAlpha(.45);
+				icon.setDepth(5);
+				this.tweens.add({
+					targets: icon,
+					y: p.y - 14,
+					scale: .82,
+					alpha: .7,
+					duration: 1800 + Math.random() * 400,
+					yoyo: true,
+					repeat: -1,
+					ease: "Sine.easeInOut",
+					delay: p.delay
+				});
+			}
+		});
+		if (this.textures.exists("bee-sprite")) {
+			this.bee = this.add.sprite(360, GAME_HEIGHT * .42, "bee-sprite");
+			this.bee.setScale(.65);
+			this.bee.setAlpha(.75);
+			this.bee.setDepth(8);
+		}
+	}
+	update(time, delta) {
+		if (!this.bee) return;
+		this.beeAngle += delta * .0018;
+		const cx = 360;
+		const cy = GAME_HEIGHT * .42;
+		const rx = 720 * .35;
+		const ry = GAME_HEIGHT * .12;
+		this.bee.x = cx + Math.cos(this.beeAngle) * rx;
+		this.bee.y = cy + Math.sin(this.beeAngle * 2) * ry;
+		this.bee.setFlipX(Math.cos(this.beeAngle) < 0);
 	}
 };
 function createFlowerQuest(parent) {

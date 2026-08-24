@@ -1,11 +1,12 @@
 import { o as __toESM } from "../_runtime.mjs";
-import { R as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
+import { L as require_jsx_runtime, R as require_react, _ as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { Ht as toKebabCase, Vt as capitalizeFirstLetter, m as isSafeUrlScheme, o as createFetch } from "../_libs/@better-auth/core+[...].mjs";
 import { n as defu } from "../_libs/defu.mjs";
-import { a as getBaseURL, i as PACKAGE_VERSION, r as GENERIC_OAUTH_ERROR_CODES } from "./router-Kpn0MurW.mjs";
+import { a as getBaseURL, i as PACKAGE_VERSION, n as GROK_PROVIDERS, r as GENERIC_OAUTH_ERROR_CODES } from "./router-BPYCvV79.mjs";
 import { a as atom, i as onSet, n as STORE_UNMOUNT_DELAY, r as onMount, t as listenKeys } from "../_libs/nanostores.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/client-BnonC71s.js
+//#region node_modules/.nitro/vite/services/ssr/assets/login-STlx9eLI.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
 var PROTO_POLLUTION_PATTERNS = {
 	proto: /"(?:_|\\u0{2}5[Ff]){2}(?:p|\\u0{2}70)(?:r|\\u0{2}72)(?:o|\\u0{2}6[Ff])(?:t|\\u0{2}74)(?:o|\\u0{2}6[Ff])(?:_|\\u0{2}5[Ff]){2}"\s*:/,
 	constructor: /"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/,
@@ -877,14 +878,49 @@ function waitForPopupToken(popup) {
 		window.addEventListener("message", onMessage);
 	});
 }
-/** Sign out of THIS app's local session, clear the preview token, then redirect. */
-async function signOut(redirectTo = "/") {
-	try {
-		await authClient.signOut();
-	} finally {
-		setBearerToken(null);
-	}
-	window.location.href = redirectTo;
+function Login() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+		className: "relative min-h-[100dvh] overflow-hidden bg-moss text-cream",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+				src: "/game/title-hero.jpg",
+				alt: "",
+				className: "absolute inset-0 h-full w-full object-cover opacity-50"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-moss/70" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative mx-auto flex min-h-[100dvh] w-full max-w-[430px] flex-col justify-center px-6 py-10",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "font-display text-sm tracking-[0.2em] text-gold uppercase",
+						children: "Monnie's Flower Quest"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+						className: "mt-2 font-display text-4xl font-semibold",
+						children: "Sign in"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-3 text-cream/80",
+						children: "Save your garden progress on this device. You can also play as a guest."
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-8 space-y-3",
+						children: GROK_PROVIDERS.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							onClick: () => signIn(p.providerId, { callbackURL: "/" }),
+							className: "w-full rounded-full bg-cream px-5 py-3.5 text-base font-bold text-ink shadow-[0_8px_0_#3a271c] active:translate-y-0.5 active:shadow-[0_4px_0_#3a271c]",
+							children: ["Continue with ", p.label]
+						}, p.providerId))
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+						to: "/",
+						className: "mt-8 text-center text-sm font-bold text-gold underline-offset-4 hover:underline",
+						children: "Back to the garden"
+					})
+				]
+			})
+		]
+	});
 }
 //#endregion
-export { signIn as n, signOut as r, authClient as t };
+export { Login as component };
