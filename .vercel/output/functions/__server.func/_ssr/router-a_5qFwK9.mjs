@@ -1,20 +1,18 @@
-import { o as __toESM } from "../_runtime.mjs";
 import { t as __exportAll } from "./rolldown-runtime-D7D4PA-g.mjs";
-import { L as require_jsx_runtime, R as require_react, f as createRouter, g as createRootRoute, h as createFileRoute, l as Scripts, m as lazyRouteComponent, p as Outlet, u as HeadContent, v as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
+import { I as require_jsx_runtime, f as createRouter, g as createRootRoute, h as createFileRoute, l as Scripts, m as lazyRouteComponent, p as Outlet, u as HeadContent } from "../_libs/@tanstack/react-router+[...].mjs";
 import { a as TriangleAlert } from "../_libs/lucide-react.mjs";
 import { a as PostgresIntrospector, c as sql, i as PostgresAdapter, n as getKyselyDatabaseType, o as PostgresQueryCompiler, s as CompiledQuery, t as createKyselyAdapter } from "../_libs/@better-auth/kysely-adapter+[...].mjs";
-import { $t as runWithAdapter, A as base64Url, At as email, C as runWithEndpointContext, D as serializeSignedCookie, Dt as any, E as serializeCookie, Ft as optional, Gt as ATTR_CONTEXT, It as record, Jt as import_src, Kt as ATTR_HOOK_TYPE, Lt as string, M as decodeProtectedHeader, Mt as looseObject, N as jwtVerify, Nt as number, O as filterOutputFields, Ot as array, Pt as object, Qt as queueAfterTransactionHook, Rt as union, S as getCurrentAuthContext, T as toResponse, Wt as withSpan, Xt as getAuthTables, Yt as safeJSONParse, Zt as getCurrentAdapter, _ as createAuthMiddleware, _n as BetterAuthError, a as betterFetch, an as createRandomStringGenerator, b as hasRequestState, bn as defineErrorCodes, c as applyDefaultAccessTokenExpiry, cn as shouldPublishLog, d as findInvalidTrustedProxies, en as runWithTransaction, f as getIp, g as createAuthEndpoint, gn as APIError, h as normalizePathname, hn as isTest, i as refreshAccessToken, in as generateId, j as decodeJwt, jt as literal, kt as boolean, l as isLoopbackHost, mn as isProduction, mt as JWTExpired, n as socialProviders, nn as initGetModelName, nt as encode, on as createLogger, p as deprecate, pn as isDevelopment, qt as ATTR_OPERATION_ID, r as validateAuthorizationCode, rn as initGetFieldName, s as createAuthorizationURL, sn as logger, t as SocialProviderListEnum, tn as getBetterAuthVersion, u as createRateLimitKey, un as env, v as isAPIError, vn as kAPIErrorHeaderSymbol, w as createRouter$1, x as runWithRequestState, y as defineRequestState, yn as BASE_ERROR_CODES } from "../_libs/@better-auth/core+[...].mjs";
-import { n as string$1, t as boolean$1 } from "../_libs/zod.mjs";
+import { $t as getBetterAuthVersion, B as string, C as runWithEndpointContext, D as serializeSignedCookie, E as serializeCookie, F as looseObject, G as decodeJwt, Gt as ATTR_OPERATION_ID, Ht as withSpan, I as number, Jt as getAuthTables, K as decodeProtectedHeader, Kt as import_src, L as object, M as array, N as boolean, O as filterOutputFields, Ot as JWTExpired, P as email, Qt as runWithTransaction, R as optional, S as getCurrentAuthContext, T as toResponse, Ut as ATTR_CONTEXT, W as base64Url, Wt as ATTR_HOOK_TYPE, Xt as queueAfterTransactionHook, Yt as getCurrentAdapter, Zt as runWithAdapter, _ as createAuthMiddleware, _n as BASE_ERROR_CODES, a as betterFetch, an as logger, b as hasRequestState, c as applyDefaultAccessTokenExpiry, cn as env, d as findInvalidTrustedProxies, dn as isDevelopment, en as initGetModelName, f as getIp, fn as isProduction, g as createAuthEndpoint, gn as kAPIErrorHeaderSymbol, gt as encode, h as normalizePathname, hn as BetterAuthError, i as refreshAccessToken, in as createLogger, j as any, l as isLoopbackHost, mn as APIError, n as socialProviders, nn as generateId, on as shouldPublishLog, p as deprecate, pn as isTest, q as jwtVerify, qt as safeJSONParse, r as validateAuthorizationCode, rn as createRandomStringGenerator, s as createAuthorizationURL, t as SocialProviderListEnum, tn as initGetFieldName, u as createRateLimitKey, v as isAPIError, vn as defineErrorCodes, w as createRouter$1, x as runWithRequestState, y as defineRequestState, z as record } from "../_libs/@better-auth/core+[...].mjs";
 import { n as hkdf, t as sha256 } from "../_libs/noble__hashes.mjs";
 import { i as jwtDecrypt, n as EncryptJWT, r as SignJWT, t as calculateJwkThumbprint } from "../_libs/jose.mjs";
 import { i as verifyPassword, n as binary, r as hashPassword, t as createHMAC } from "../_libs/better-auth__utils.mjs";
 import { n as createHash, t as createTelemetry } from "../_libs/@better-auth/telemetry+[...].mjs";
 import { a as utf8ToBytes, i as managedNonce, n as bytesToHex, r as hexToBytes, t as xchacha20poly1305 } from "../_libs/noble__ciphers.mjs";
+import { n as string$1, t as boolean$1 } from "../_libs/zod.mjs";
 import { n as defu, t as createDefu } from "../_libs/defu.mjs";
 import { t as Pool } from "../_libs/pg.mjs";
 import { randomBytes } from "node:crypto";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-Bx-AdlYf.js
-var import_react = /* @__PURE__ */ __toESM(require_react());
+//#region node_modules/.nitro/vite/services/ssr/assets/router-a_5qFwK9.js
 var import_jsx_runtime = require_jsx_runtime();
 function AppErrorComponent({ error }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
@@ -52,237 +50,7 @@ function AppErrorComponent({ error }) {
 function AuthProvider({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children });
 }
-function isGrokEmbedderOrigin(origin) {
-	try {
-		const url = new URL(origin);
-		if (url.protocol !== "https:" && url.protocol !== "http:") return false;
-		const host = url.hostname.toLowerCase();
-		if (host === "grok.com" || host.endsWith(".grok.com")) return true;
-		if (host === "localhost" || host === "127.0.0.1" || host === "[::1]") return true;
-		return false;
-	} catch {
-		return false;
-	}
-}
-function isSandboxPreviewGuestHost(hostname) {
-	const host = hostname.toLowerCase();
-	return host === "grok-sandbox.com" || host.endsWith(".grok-sandbox.com");
-}
-function isRemintPreviewPair(guestHost, parentHost) {
-	const guest = guestHost.toLowerCase();
-	const parent = parentHost.toLowerCase();
-	const i = guest.indexOf(".preview.");
-	if (i <= 0) return false;
-	const label = guest.slice(0, i);
-	const rest = guest.slice(i + 9);
-	if (label.includes(".") || !rest.includes(".")) return false;
-	return parent === rest || parent === `grok.${rest}`;
-}
-function resolveParentEmbedderOrigin(parentIsSelf, referrer, ancestorOrigin, guestHostname = "") {
-	if (parentIsSelf) return null;
-	for (const candidate of [referrer, ancestorOrigin ?? ""].filter(Boolean)) try {
-		const url = new URL(candidate.includes("://") ? candidate : `https://${candidate}`);
-		if (url.protocol !== "https:" && url.protocol !== "http:") continue;
-		if (isGrokEmbedderOrigin(url.origin)) return url.origin;
-		if (isSandboxPreviewGuestHost(guestHostname) || isRemintPreviewPair(guestHostname, url.hostname)) return url.origin;
-	} catch {}
-	return null;
-}
-/**
-* Guest side of the grok-web ↔ sandbox preview postMessage bridge.
-*
-* Activates only when this page is framed by an allowlisted Grok embedder.
-* Top-level runs (download/export, local `npm run dev`, deployed sites) noop.
-*/
-var PREVIEW_BRIDGE_CHANNEL = "grok-preview-bridge";
-var EnvelopeSchema = object({
-	channel: literal(PREVIEW_BRIDGE_CHANNEL),
-	version: number().int().positive(),
-	type: string().min(1)
-});
-var HelloSchema = EnvelopeSchema.extend({ type: literal("hello") });
-var NavigateSchema = EnvelopeSchema.extend({
-	type: literal("navigate"),
-	path: string().min(1)
-});
-var HistorySchema = EnvelopeSchema.extend({
-	type: literal("history"),
-	delta: union([literal(-1), literal(1)])
-});
-function isSafeBridgePath(path) {
-	if (!path.startsWith("/") || path.startsWith("//") || path.includes("\\")) return false;
-	try {
-		return new URL(path, "https://preview.invalid").origin === "https://preview.invalid";
-	} catch {
-		return false;
-	}
-}
-/**
-* Install host↔guest messaging. Returns a dispose function.
-* Noops (returns a no-op dispose) when not embedded under a Grok parent.
-*/
-function installPreviewHostBridge(options = {}) {
-	if (typeof window === "undefined") return () => {};
-	const ancestorOrigin = typeof location.ancestorOrigins !== "undefined" && location.ancestorOrigins.length > 0 ? location.ancestorOrigins[0] : null;
-	const parentOrigin = resolveParentEmbedderOrigin(window.parent === window, document.referrer, ancestorOrigin, window.location.hostname);
-	if (parentOrigin === null) return () => {};
-	const ROOT_STATE_KEY = "__grokPreviewBridgeRoot";
-	const originalPushState = window.history.pushState.bind(window.history);
-	const originalReplaceState = window.history.replaceState.bind(window.history);
-	const isAtHistoryRoot = () => {
-		const state = window.history.state;
-		return Boolean(state && typeof state === "object" && state[ROOT_STATE_KEY] === true);
-	};
-	try {
-		const current = window.history.state;
-		if (!(current !== null && typeof current === "object" && Object.prototype.hasOwnProperty.call(current, ROOT_STATE_KEY))) {
-			const isRoot = window.history.length <= 1;
-			originalReplaceState(current && typeof current === "object" ? {
-				...current,
-				[ROOT_STATE_KEY]: isRoot
-			} : { [ROOT_STATE_KEY]: isRoot }, "", window.location.href);
-		}
-	} catch {}
-	const post = (message) => {
-		window.parent.postMessage(message, parentOrigin);
-	};
-	const reportLocation = () => {
-		post({
-			channel: PREVIEW_BRIDGE_CHANNEL,
-			version: 1,
-			type: "location",
-			path: window.location.pathname || "/",
-			search: window.location.search,
-			hash: window.location.hash
-		});
-	};
-	const reportRoutes = () => {
-		const paths = options.getRoutePaths?.() ?? [];
-		post({
-			channel: PREVIEW_BRIDGE_CHANNEL,
-			version: 1,
-			type: "routes",
-			paths
-		});
-	};
-	const defaultNavigate = (path) => {
-		if (!isSafeBridgePath(path)) return;
-		try {
-			const url = new URL(path, window.location.origin);
-			if (url.origin !== window.location.origin) return;
-			const next = `${url.pathname}${url.search}${url.hash}`;
-			window.history.pushState(window.history.state, "", next);
-			window.dispatchEvent(new PopStateEvent("popstate", { state: window.history.state }));
-		} catch {}
-	};
-	const navigate = (path) => {
-		if (!isSafeBridgePath(path)) return;
-		if (options.navigate) {
-			options.navigate(path);
-			return;
-		}
-		defaultNavigate(path);
-	};
-	const announce = () => {
-		reportLocation();
-		reportRoutes();
-		post({
-			channel: PREVIEW_BRIDGE_CHANNEL,
-			version: 1,
-			type: "ready"
-		});
-	};
-	const onMessage = (event) => {
-		if (event.source !== window.parent) return;
-		if (event.origin !== parentOrigin) return;
-		const envelope = EnvelopeSchema.safeParse(event.data);
-		if (!envelope.success || envelope.data.version !== 1) return;
-		if (envelope.data.type === "hello") {
-			if (!HelloSchema.safeParse(event.data).success) return;
-			announce();
-			return;
-		}
-		if (envelope.data.type === "navigate") {
-			const parsed = NavigateSchema.safeParse(event.data);
-			if (!parsed.success) return;
-			navigate(parsed.data.path);
-			queueMicrotask(reportLocation);
-			return;
-		}
-		if (envelope.data.type === "history") {
-			const parsed = HistorySchema.safeParse(event.data);
-			if (!parsed.success) return;
-			if (parsed.data.delta === -1 && isAtHistoryRoot()) return;
-			window.history.go(parsed.data.delta);
-		}
-	};
-	const onPopState = () => {
-		reportLocation();
-	};
-	const onHashChange = () => {
-		reportLocation();
-	};
-	window.history.pushState = (data, unused, url) => {
-		const next = data && typeof data === "object" ? {
-			...data,
-			[ROOT_STATE_KEY]: false
-		} : data;
-		originalPushState(next, unused, url);
-		reportLocation();
-	};
-	window.history.replaceState = (data, unused, url) => {
-		const next = isAtHistoryRoot() ? {
-			...data && typeof data === "object" ? data : {},
-			[ROOT_STATE_KEY]: true
-		} : data;
-		originalReplaceState(next, unused, url);
-		reportLocation();
-	};
-	window.addEventListener("message", onMessage);
-	window.addEventListener("popstate", onPopState);
-	window.addEventListener("hashchange", onHashChange);
-	announce();
-	return () => {
-		window.removeEventListener("message", onMessage);
-		window.removeEventListener("popstate", onPopState);
-		window.removeEventListener("hashchange", onHashChange);
-		window.history.pushState = originalPushState;
-		window.history.replaceState = originalReplaceState;
-	};
-}
-/** Collect static path patterns from a TanStack route tree (best-effort). */
-function collectRoutePathsFromTree(routeTree) {
-	const paths = /* @__PURE__ */ new Set();
-	const walk = (node) => {
-		if (!node || typeof node !== "object") return;
-		const record = node;
-		const full = typeof record.fullPath === "string" ? record.fullPath : typeof record.path === "string" ? record.path : null;
-		if (full !== null && full !== "") paths.add(full.startsWith("/") ? full : `/${full}`);
-		else if (full === "") paths.add("/");
-		const children = record.children;
-		if (Array.isArray(children)) for (const child of children) walk(child);
-		else if (children && typeof children === "object") for (const child of Object.values(children)) walk(child);
-	};
-	walk(routeTree);
-	return [...paths];
-}
-/**
-* Mount once in `__root.tsx` so the Grok preview chrome can drive navigation
-* (and later receive registered routes). Noops when the app is not embedded.
-*/
-function PreviewHostBridge() {
-	const router = useRouter();
-	(0, import_react.useEffect)(() => {
-		return installPreviewHostBridge({
-			navigate: (path) => {
-				router.history.push(path);
-			},
-			getRoutePaths: () => collectRoutePathsFromTree(router.routeTree)
-		});
-	}, [router]);
-	return null;
-}
-var styles_default = "/assets/styles-8i2km-Jp.css";
+var styles_default = "/assets/styles-C_rbDiJw.css";
 var APP_NAME = "Monnie's Flower Quest";
 var APP_DESCRIPTION = "Guide Monnie through ten handcrafted gardens, collect every bloom, seize power blooms, dodge beetles, bees, and wasps, and unlock the garden gates.";
 var Route$3 = createRootRoute({
@@ -335,39 +103,24 @@ var Route$3 = createRootRoute({
 				content: "/x-banner.jpg"
 			}
 		],
-		links: [
-			{
-				rel: "icon",
-				type: "image/svg+xml",
-				href: "/favicon.svg"
-			},
-			{
-				rel: "stylesheet",
-				href: styles_default
-			},
-			{
-				rel: "manifest",
-				href: "/__grok/manifest.webmanifest"
-			},
-			{
-				rel: "apple-touch-icon",
-				href: "/__grok/icon-180.png"
-			}
-		]
+		links: [{
+			rel: "icon",
+			type: "image/svg+xml",
+			href: "/favicon.svg"
+		}, {
+			rel: "stylesheet",
+			href: styles_default
+		}]
 	}),
 	component: () => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("html", {
 		lang: "en",
 		suppressHydrationWarning: true,
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PreviewHostBridge, {}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}) }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {})
-		] })]
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {})] })]
 	})
 });
 var $$splitComponentImporter$1 = () => import("./routes-D-_KDhVO.mjs").then((n) => n.t);
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./login-GygUMN_m.mjs");
+var $$splitComponentImporter = () => import("./login-UGFiggSi.mjs");
 var Route$1 = createFileRoute("/login")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 /**
 * Escapes a character if it has a special meaning in regular expressions
