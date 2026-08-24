@@ -13,8 +13,8 @@ export const level10: LevelDef = {
   collectibleLabel: "Royal Blooms",
   collectibleIcon: "rose",
   environment: {
-    mapKey: "map-level-5",
-    mapUrl: "/game/maps/level5-base.jpg",
+    mapKey: "map-level-10",
+    mapUrl: "/game/maps/level10-base.jpg",
     width: 1152,
     height: 1728,
     boundsInset: 40,
@@ -158,6 +158,7 @@ export const level10: LevelDef = {
     },
   ],
   obstacles: [
+    { kind: "prop-fountain", x: 576, y: 880, height: 110, collides: true },
     { kind: "arch", x: 576, y: 1320, height: 150, collides: false },
     { kind: "arch", x: 576, y: 430, height: 150, collides: false },
   ],

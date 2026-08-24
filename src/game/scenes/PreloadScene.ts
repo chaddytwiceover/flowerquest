@@ -42,6 +42,10 @@ export class PreloadScene extends Phaser.Scene {
     this.load.image("gate-open", "/game/sprites/gate-open.png");
     this.load.image("bridge", "/game/sprites/bridge.png");
     this.load.image("water", "/game/sprites/water.png");
+    this.load.image("prop-beehive", "/game/sprites/prop-beehive.jpg");
+    this.load.image("prop-wasp-nest", "/game/sprites/prop-wasp-nest.jpg");
+    this.load.image("prop-fountain", "/game/sprites/prop-fountain.jpg");
+    this.load.image("prop-lantern", "/game/sprites/prop-lantern.jpg");
 
     for (const level of LEVELS) {
       this.load.image(level.environment.mapKey, level.environment.mapUrl);

@@ -2,7 +2,7 @@ import { o as __toESM } from "../_runtime.mjs";
 import { t as __exportAll } from "./rolldown-runtime-D7D4PA-g.mjs";
 import { L as require_jsx_runtime, R as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
 import { c as Snowflake, d as Pause, f as House, i as Trophy, l as RotateCcw, m as ArrowRight, n as VolumeX, o as Sprout, p as Heart, r as Volume2, s as Sparkles, t as Zap, u as Play } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DWbFBSRH.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-D-_KDhVO.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var MUTE_KEY = "flower-quest-muted";
@@ -2169,8 +2169,8 @@ var LEVELS = [
 		collectibleLabel: "Blooms",
 		collectibleIcon: "sunflower",
 		environment: {
-			mapKey: "map-level-1",
-			mapUrl: "/game/maps/level1-base.jpg",
+			mapKey: "map-level-6",
+			mapUrl: "/game/maps/level6-base.jpg",
 			width: 1408,
 			height: 1408,
 			boundsInset: 40
@@ -2332,6 +2332,20 @@ var LEVELS = [
 				collides: true
 			},
 			{
+				kind: "prop-beehive",
+				x: 260,
+				y: 380,
+				height: 80,
+				collides: true
+			},
+			{
+				kind: "prop-beehive",
+				x: 1140,
+				y: 380,
+				height: 80,
+				collides: true
+			},
+			{
 				kind: "bush",
 				x: 540,
 				y: 920,
@@ -2371,8 +2385,8 @@ var LEVELS = [
 		collectibleLabel: "Flowers",
 		collectibleIcon: "tulip",
 		environment: {
-			mapKey: "map-level-2",
-			mapUrl: "/game/maps/level2-base.jpg",
+			mapKey: "map-level-7",
+			mapUrl: "/game/maps/level7-base.jpg",
 			width: 1152,
 			height: 1728,
 			boundsInset: 42
@@ -2592,23 +2606,23 @@ var LEVELS = [
 		collectibleLabel: "Blooms",
 		collectibleIcon: "bluebell",
 		environment: {
-			mapKey: "map-level-3",
-			mapUrl: "/game/maps/level3-base.jpg",
-			width: 1008,
-			height: 1792,
+			mapKey: "map-level-8",
+			mapUrl: "/game/maps/level8-base.jpg",
+			width: 1152,
+			height: 1728,
 			boundsInset: 40
 		},
 		playerSpawn: {
-			x: 504,
-			y: 1680
+			x: 576,
+			y: 1600
 		},
 		playerSpeed: 165,
 		hearts: 3,
 		music: "crossing",
 		completeOn: "reach-exit",
 		exit: {
-			x: 504,
-			y: 140,
+			x: 576,
+			y: 160,
 			unlockAt: "all-flowers",
 			lockedHint: "Collect all 8 guarded blooms first!",
 			unlockedHint: "The Sanctuary Gate has opened!",
@@ -2617,52 +2631,52 @@ var LEVELS = [
 		flowers: [
 			{
 				kind: "bluebell",
-				x: 260,
-				y: 1540
+				x: 280,
+				y: 1460
 			},
 			{
 				kind: "bluebell",
-				x: 750,
-				y: 1540
+				x: 870,
+				y: 1460
 			},
 			{
 				kind: "bluebell",
 				x: 300,
-				y: 1100
+				y: 1050
 			},
 			{
 				kind: "bluebell",
-				x: 710,
-				y: 1100
+				x: 850,
+				y: 1050
 			},
 			{
 				kind: "bluebell",
-				x: 504,
+				x: 576,
 				y: 880
 			},
 			{
 				kind: "bluebell",
-				x: 250,
+				x: 280,
 				y: 480
 			},
 			{
 				kind: "bluebell",
-				x: 750,
+				x: 870,
 				y: 480
 			},
 			{
 				kind: "bluebell",
-				x: 504,
-				y: 280
+				x: 576,
+				y: 300
 			}
 		],
 		powerBlooms: [{
 			kind: "frost",
-			x: 504,
+			x: 576,
 			y: 1350
 		}, {
 			kind: "heart",
-			x: 504,
+			x: 576,
 			y: 650
 		}],
 		hazards: [
@@ -2684,17 +2698,17 @@ var LEVELS = [
 			},
 			{
 				kind: "bee",
-				x: 650,
+				x: 800,
 				y: 1400,
 				speed: 50,
 				chaseSpeed: 175,
 				detectRadius: 170,
 				leashRadius: 280,
 				patrol: [{
-					x: 550,
+					x: 700,
 					y: 1400
 				}, {
-					x: 750,
+					x: 900,
 					y: 1400
 				}]
 			},
@@ -2714,12 +2728,12 @@ var LEVELS = [
 			},
 			{
 				kind: "wasp",
-				x: 730,
+				x: 870,
 				y: 1050,
 				speed: 40,
 				chaseSpeed: 215,
 				guardZone: {
-					x: 730,
+					x: 870,
 					y: 1050,
 					radius: 140
 				},
@@ -2729,6 +2743,20 @@ var LEVELS = [
 		],
 		obstacles: [
 			{
+				kind: "prop-wasp-nest",
+				x: 280,
+				y: 1e3,
+				height: 75,
+				collides: true
+			},
+			{
+				kind: "prop-wasp-nest",
+				x: 870,
+				y: 1e3,
+				height: 75,
+				collides: true
+			},
+			{
 				kind: "tree",
 				x: 120,
 				y: 180,
@@ -2737,7 +2765,7 @@ var LEVELS = [
 			},
 			{
 				kind: "tree",
-				x: 880,
+				x: 1030,
 				y: 180,
 				height: 180,
 				collides: true
@@ -2751,7 +2779,7 @@ var LEVELS = [
 			},
 			{
 				kind: "bush",
-				x: 700,
+				x: 850,
 				y: 880,
 				height: 72,
 				collides: true
@@ -2775,8 +2803,8 @@ var LEVELS = [
 		collectibleLabel: "Nightshades",
 		collectibleIcon: "bluebell",
 		environment: {
-			mapKey: "map-level-4",
-			mapUrl: "/game/maps/level4-base.jpg",
+			mapKey: "map-level-9",
+			mapUrl: "/game/maps/level9-base.jpg",
 			width: 1152,
 			height: 1728,
 			boundsInset: 42
@@ -2982,6 +3010,27 @@ var LEVELS = [
 		],
 		obstacles: [
 			{
+				kind: "prop-lantern",
+				x: 380,
+				y: 1200,
+				height: 75,
+				collides: true
+			},
+			{
+				kind: "prop-lantern",
+				x: 770,
+				y: 1200,
+				height: 75,
+				collides: true
+			},
+			{
+				kind: "prop-lantern",
+				x: 576,
+				y: 650,
+				height: 75,
+				collides: true
+			},
+			{
 				kind: "tree",
 				x: 80,
 				y: 150,
@@ -3028,8 +3077,8 @@ var LEVELS = [
 		collectibleLabel: "Royal Blooms",
 		collectibleIcon: "rose",
 		environment: {
-			mapKey: "map-level-5",
-			mapUrl: "/game/maps/level5-base.jpg",
+			mapKey: "map-level-10",
+			mapUrl: "/game/maps/level10-base.jpg",
 			width: 1152,
 			height: 1728,
 			boundsInset: 40
@@ -3286,19 +3335,29 @@ var LEVELS = [
 				leashRadius: 240
 			}
 		],
-		obstacles: [{
-			kind: "arch",
-			x: 576,
-			y: 1320,
-			height: 150,
-			collides: false
-		}, {
-			kind: "arch",
-			x: 576,
-			y: 430,
-			height: 150,
-			collides: false
-		}],
+		obstacles: [
+			{
+				kind: "prop-fountain",
+				x: 576,
+				y: 880,
+				height: 110,
+				collides: true
+			},
+			{
+				kind: "arch",
+				x: 576,
+				y: 1320,
+				height: 150,
+				collides: false
+			},
+			{
+				kind: "arch",
+				x: 576,
+				y: 430,
+				height: 150,
+				collides: false
+			}
+		],
 		walls: [{
 			x: 0,
 			y: 0,
@@ -3600,7 +3659,7 @@ function PhaserCanvas({ onReady }) {
 		if (!parentRef.current) return;
 		let cancelled = false;
 		let api = null;
-		import("./createGame-Befd99p3.mjs").then(({ createFlowerQuest }) => {
+		import("./createGame-C8TSjLz8.mjs").then(({ createFlowerQuest }) => {
 			if (cancelled || !parentRef.current) return;
 			api = createFlowerQuest(parentRef.current);
 			onReady(api);

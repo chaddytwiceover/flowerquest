@@ -13,8 +13,8 @@ export const level7: LevelDef = {
   collectibleLabel: "Flowers",
   collectibleIcon: "tulip",
   environment: {
-    mapKey: "map-level-2",
-    mapUrl: "/game/maps/level2-base.jpg",
+    mapKey: "map-level-7",
+    mapUrl: "/game/maps/level7-base.jpg",
     width: 1152,
     height: 1728,
     boundsInset: 42,

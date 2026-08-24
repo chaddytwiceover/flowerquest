@@ -8,9 +8,13 @@ const BODY_BY_KIND: Record<ObstacleKind, { w: number; h: number }> = {
   stump: { w: 38, h: 22 },
   pot: { w: 26, h: 22 },
   arch: { w: 22, h: 16 },
+  "prop-beehive": { w: 40, h: 30 },
+  "prop-wasp-nest": { w: 36, h: 26 },
+  "prop-fountain": { w: 64, h: 48 },
+  "prop-lantern": { w: 32, h: 24 },
 };
 
-/** Trees, rocks, bushes, arches, and rectangular hedge/wall blockers. */
+/** Trees, rocks, bushes, arches, props, and rectangular hedge/wall blockers. */
 export function placeObstacles(
   scene: Phaser.Scene,
   level: LevelDef,
@@ -22,7 +26,7 @@ export function placeObstacles(
     sprite.setScale(prop.height / src);
     sprite.setOrigin(0.5, 0.88);
     sprite.setDepth(prop.y);
-    const body = BODY_BY_KIND[prop.kind];
+    const body = BODY_BY_KIND[prop.kind] ?? { w: 32, h: 24 };
     sprite.body?.setSize(body.w, body.h);
     sprite.body?.setOffset((sprite.width - body.w) / 2, sprite.height - body.h - 4);
     sprite.refreshBody();

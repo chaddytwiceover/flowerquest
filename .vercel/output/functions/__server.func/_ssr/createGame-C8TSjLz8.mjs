@@ -1,6 +1,6 @@
-import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-DWbFBSRH.mjs";
+import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-D-_KDhVO.mjs";
 import { a as __webpack_exports__Scale, i as __webpack_exports__Math, n as __webpack_exports__BlendModes, o as __webpack_exports__Scene, r as __webpack_exports__Game, t as __webpack_exports__AUTO } from "../_libs/phaser.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/createGame-Befd99p3.js
+//#region node_modules/.nitro/vite/services/ssr/assets/createGame-C8TSjLz8.js
 var GAME_HEIGHT = 1280;
 var BootScene = class extends __webpack_exports__Scene {
 	constructor() {
@@ -501,9 +501,25 @@ var BODY_BY_KIND = {
 	arch: {
 		w: 22,
 		h: 16
+	},
+	"prop-beehive": {
+		w: 40,
+		h: 30
+	},
+	"prop-wasp-nest": {
+		w: 36,
+		h: 26
+	},
+	"prop-fountain": {
+		w: 64,
+		h: 48
+	},
+	"prop-lantern": {
+		w: 32,
+		h: 24
 	}
 };
-/** Trees, rocks, bushes, arches, and rectangular hedge/wall blockers. */
+/** Trees, rocks, bushes, arches, props, and rectangular hedge/wall blockers. */
 function placeObstacles(scene, level, blockers) {
 	for (const prop of level.obstacles) {
 		const sprite = scene.physics.add.staticSprite(prop.x, prop.y, prop.kind);
@@ -511,7 +527,10 @@ function placeObstacles(scene, level, blockers) {
 		sprite.setScale(prop.height / src);
 		sprite.setOrigin(.5, .88);
 		sprite.setDepth(prop.y);
-		const body = BODY_BY_KIND[prop.kind];
+		const body = BODY_BY_KIND[prop.kind] ?? {
+			w: 32,
+			h: 24
+		};
 		sprite.body?.setSize(body.w, body.h);
 		sprite.body?.setOffset((sprite.width - body.w) / 2, sprite.height - body.h - 4);
 		sprite.refreshBody();
@@ -1105,6 +1124,10 @@ var PreloadScene = class extends __webpack_exports__Scene {
 		this.load.image("gate-open", "/game/sprites/gate-open.png");
 		this.load.image("bridge", "/game/sprites/bridge.png");
 		this.load.image("water", "/game/sprites/water.png");
+		this.load.image("prop-beehive", "/game/sprites/prop-beehive.jpg");
+		this.load.image("prop-wasp-nest", "/game/sprites/prop-wasp-nest.jpg");
+		this.load.image("prop-fountain", "/game/sprites/prop-fountain.jpg");
+		this.load.image("prop-lantern", "/game/sprites/prop-lantern.jpg");
 		for (const level of LEVELS) this.load.image(level.environment.mapKey, level.environment.mapUrl);
 	}
 	create() {

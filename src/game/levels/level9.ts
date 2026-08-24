@@ -13,8 +13,8 @@ export const level9: LevelDef = {
   collectibleLabel: "Nightshades",
   collectibleIcon: "bluebell",
   environment: {
-    mapKey: "map-level-4",
-    mapUrl: "/game/maps/level4-base.jpg",
+    mapKey: "map-level-9",
+    mapUrl: "/game/maps/level9-base.jpg",
     width: 1152,
     height: 1728,
     boundsInset: 42,
@@ -133,6 +133,9 @@ export const level9: LevelDef = {
     },
   ],
   obstacles: [
+    { kind: "prop-lantern", x: 380, y: 1200, height: 75, collides: true },
+    { kind: "prop-lantern", x: 770, y: 1200, height: 75, collides: true },
+    { kind: "prop-lantern", x: 576, y: 650, height: 75, collides: true },
     { kind: "tree", x: 80, y: 150, height: 170, collides: true },
     { kind: "tree", x: 1070, y: 150, height: 170, collides: true },
     { kind: "bush", x: 380, y: 1000, height: 72, collides: true },

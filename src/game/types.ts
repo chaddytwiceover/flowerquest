@@ -1,7 +1,17 @@
 import type { MusicId } from "./audio";
 
 export type FlowerKind = "daisy" | "tulip" | "rose" | "sunflower" | "bluebell";
-export type ObstacleKind = "tree" | "bush" | "rock" | "stump" | "pot" | "arch";
+export type ObstacleKind =
+  | "tree"
+  | "bush"
+  | "rock"
+  | "stump"
+  | "pot"
+  | "arch"
+  | "prop-beehive"
+  | "prop-wasp-nest"
+  | "prop-fountain"
+  | "prop-lantern";
 export type HazardKind = "beetle" | "bee" | "wasp";
 export type PowerUpKind = "swift" | "frost" | "heart";
 export type CompleteOn = "collect-all" | "reach-exit";
