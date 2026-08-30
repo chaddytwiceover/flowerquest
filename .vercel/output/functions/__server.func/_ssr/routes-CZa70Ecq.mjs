@@ -814,14 +814,18 @@ function readGamepad() {
 }
 /** Call once per frame before movement. */
 function updateActions() {
-	const codes = keyOverride ?? [...keys];
 	let x = keyOverride ? 0 : joystick.x;
 	let y = keyOverride ? 0 : joystick.y;
-	if (codes.includes("KeyA") || codes.includes("ArrowLeft")) x -= 1;
-	if (codes.includes("KeyD") || codes.includes("ArrowRight")) x += 1;
-	if (codes.includes("KeyW") || codes.includes("ArrowUp")) y -= 1;
-	if (codes.includes("KeyS") || codes.includes("ArrowDown")) y += 1;
-	if (!keyOverride) {
+	if (keyOverride) {
+		if (keyOverride.includes("KeyA") || keyOverride.includes("ArrowLeft")) x -= 1;
+		if (keyOverride.includes("KeyD") || keyOverride.includes("ArrowRight")) x += 1;
+		if (keyOverride.includes("KeyW") || keyOverride.includes("ArrowUp")) y -= 1;
+		if (keyOverride.includes("KeyS") || keyOverride.includes("ArrowDown")) y += 1;
+	} else {
+		if (keys.has("KeyA") || keys.has("ArrowLeft")) x -= 1;
+		if (keys.has("KeyD") || keys.has("ArrowRight")) x += 1;
+		if (keys.has("KeyW") || keys.has("ArrowUp")) y -= 1;
+		if (keys.has("KeyS") || keys.has("ArrowDown")) y += 1;
 		const pad = readGamepad();
 		x += pad.x;
 		y += pad.y;
