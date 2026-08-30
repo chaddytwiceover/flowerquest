@@ -55,3 +55,27 @@ test("subscribeGameState unsubscribe prevents future invocations", () => {
   // Invocation count should not change
   assert.equal(invocationCount, 1);
 });
+
+test("getGameState returns the current state", () => {
+  const state = getGameState();
+  assert.ok(state !== null);
+  assert.equal(typeof state, "object");
+  assert.ok("phase" in state);
+  assert.ok("hearts" in state);
+});
+
+test("patchGameState merges partial state correctly", () => {
+  const initialState = { ...getGameState() };
+  const newHearts = initialState.hearts + 10;
+  const newPhase = "won";
+
+  patchGameState({ hearts: newHearts, phase: newPhase });
+
+  const newState = getGameState();
+  assert.equal(newState.hearts, newHearts);
+  assert.equal(newState.phase, newPhase);
+
+  // Other properties should remain untouched
+  assert.equal(newState.levelId, initialState.levelId);
+  assert.equal(newState.flowersCollected, initialState.flowersCollected);
+});
