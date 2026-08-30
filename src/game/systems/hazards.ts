@@ -18,7 +18,7 @@ export function updateHazards(
   deltaSec = 0.016,
   isFrozen = false,
 ) {
-  hazards.forEach((hazard) => updatePest(hazard, playerX, playerY, deltaSec, isFrozen));
+  hazards.forEach((hazard) => updatePest(hazard, { playerX, playerY, deltaSec, isFrozen }));
 }
 
 export function stopHazards(hazards: HazardRef[]) {
