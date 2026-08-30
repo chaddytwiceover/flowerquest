@@ -2,7 +2,7 @@ import { o as __toESM } from "../_runtime.mjs";
 import { t as __exportAll } from "./rolldown-runtime-D7D4PA-g.mjs";
 import { I as require_jsx_runtime, L as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
 import { c as Snowflake, d as Pause, f as House, i as Trophy, l as RotateCcw, m as ArrowRight, n as VolumeX, o as Sprout, p as Heart, r as Volume2, s as Sparkles, t as Zap, u as Play } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-D-_KDhVO.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CbS2YmHl.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var MUTE_KEY = "flower-quest-muted";
@@ -3659,7 +3659,7 @@ function PhaserCanvas({ onReady }) {
 		if (!parentRef.current) return;
 		let cancelled = false;
 		let api = null;
-		import("./createGame-C8TSjLz8.mjs").then(({ createFlowerQuest }) => {
+		import("./createGame-Dd40xBex.mjs").then(({ createFlowerQuest }) => {
 			if (cancelled || !parentRef.current) return;
 			api = createFlowerQuest(parentRef.current);
 			onReady(api);
