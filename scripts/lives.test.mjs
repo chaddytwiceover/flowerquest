@@ -10,11 +10,22 @@ test("lives system tests", async (t) => {
   });
 
   await t.test("currentHearts returns current hearts", () => {
+    // Typical values
     patchGameState({ hearts: 5 });
     assert.equal(currentHearts(), 5);
 
     patchGameState({ hearts: 2 });
     assert.equal(currentHearts(), 2);
+
+    // Boundary conditions
+    patchGameState({ hearts: 0 });
+    assert.equal(currentHearts(), 0);
+
+    patchGameState({ hearts: -1 });
+    assert.equal(currentHearts(), -1);
+
+    patchGameState({ hearts: 999 });
+    assert.equal(currentHearts(), 999);
   });
 
   await t.test("loseHeart decrements hearts", () => {
