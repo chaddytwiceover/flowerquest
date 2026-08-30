@@ -198,7 +198,16 @@ function tone(freq: number, duration: number, type: OscillatorType, gain = 0.07,
   };
 }
 
-function note(bus: GainNode, midiNote: number, when: number, dur: number, type: OscillatorType, vol: number) {
+type NoteOptions = {
+  bus: GainNode;
+  midiNote: number;
+  when: number;
+  dur: number;
+  type: OscillatorType;
+  vol: number;
+};
+
+function note({ bus, midiNote, when, dur, type, vol }: NoteOptions) {
   if (!ctx || midiNote <= 0) return;
   const osc = ctx.createOscillator();
   const amp = ctx.createGain();
@@ -221,10 +230,10 @@ function scheduleStep(theme: Theme, index: number, when: number) {
   if (!musicBus || muted) return;
   const eighth = 60 / theme.bpm / 2;
   const i = index % theme.steps;
-  if (theme.bass[i]) note(musicBus, theme.bass[i], when, eighth * 1.6, theme.bassType, 0.045);
-  if (theme.lead[i]) note(musicBus, theme.lead[i], when, eighth * 1.15, theme.leadType, 0.038);
-  if (theme.harmony?.[i]) note(musicBus, theme.harmony[i], when, eighth * 1.1, "sine", 0.022);
-  if (theme.spark?.[i]) note(musicBus, theme.spark[i], when, eighth * 0.7, "sine", 0.018);
+  if (theme.bass[i]) note({ bus: musicBus, midiNote: theme.bass[i], when, dur: eighth * 1.6, type: theme.bassType, vol: 0.045 });
+  if (theme.lead[i]) note({ bus: musicBus, midiNote: theme.lead[i], when, dur: eighth * 1.15, type: theme.leadType, vol: 0.038 });
+  if (theme.harmony?.[i]) note({ bus: musicBus, midiNote: theme.harmony[i], when, dur: eighth * 1.1, type: "sine", vol: 0.022 });
+  if (theme.spark?.[i]) note({ bus: musicBus, midiNote: theme.spark[i], when, dur: eighth * 0.7, type: "sine", vol: 0.018 });
 }
 
 function pump() {

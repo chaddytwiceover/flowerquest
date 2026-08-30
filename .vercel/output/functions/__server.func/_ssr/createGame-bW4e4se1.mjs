@@ -1,12 +1,6 @@
-<<<<<<<< HEAD:.vercel/output/functions/__server.func/_ssr/createGame-_JClSNxv.mjs
-import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-BmtOzprU.mjs";
-import { a as __webpack_exports__Scale, i as __webpack_exports__Math, n as __webpack_exports__BlendModes, o as __webpack_exports__Scene, r as __webpack_exports__Game, t as __webpack_exports__AUTO } from "../_libs/phaser.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/createGame-_JClSNxv.js
-========
 import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-CZa70Ecq.mjs";
 import { a as __webpack_exports__Scale, i as __webpack_exports__Math, n as __webpack_exports__BlendModes, o as __webpack_exports__Scene, r as __webpack_exports__Game, t as __webpack_exports__AUTO } from "../_libs/phaser.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/createGame-bW4e4se1.js
->>>>>>>> origin/main:.vercel/output/functions/__server.func/_ssr/createGame-bW4e4se1.mjs
 var GAME_HEIGHT = 1280;
 var BootScene = class extends __webpack_exports__Scene {
 	constructor() {
@@ -127,10 +121,9 @@ function flowersRemaining(flowers) {
 }
 /** Backup for Arcade overlap misses (tweens / teleport / fast movement). */
 function findNearbyCollectible(flowers, x, y, radius = 46) {
-	const radiusSq = radius * radius;
 	for (const flower of flowers) {
 		if (!flower.active) continue;
-		if (__webpack_exports__Math.Distance.Squared(x, y, flower.x, flower.y) < radiusSq) return flower;
+		if (__webpack_exports__Math.Distance.Between(x, y, flower.x, flower.y) < radius) return flower;
 	}
 	return null;
 }
