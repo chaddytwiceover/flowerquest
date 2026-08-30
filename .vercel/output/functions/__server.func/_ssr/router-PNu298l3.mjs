@@ -12,11 +12,7 @@ import { n as string$1, t as boolean$1 } from "../_libs/zod.mjs";
 import { n as defu, t as createDefu } from "../_libs/defu.mjs";
 import { t as Pool } from "../_libs/pg.mjs";
 import { randomBytes } from "node:crypto";
-<<<<<<<< HEAD:.vercel/output/functions/__server.func/_ssr/router-BlLvKllv.mjs
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BlLvKllv.js
-========
 //#region node_modules/.nitro/vite/services/ssr/assets/router-PNu298l3.js
->>>>>>>> origin/main:.vercel/output/functions/__server.func/_ssr/router-PNu298l3.mjs
 var import_jsx_runtime = require_jsx_runtime();
 function AppErrorComponent({ error }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
@@ -122,15 +118,9 @@ var Route$3 = createRootRoute({
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {})] })]
 	})
 });
-<<<<<<<< HEAD:.vercel/output/functions/__server.func/_ssr/router-BlLvKllv.mjs
-var $$splitComponentImporter$1 = () => import("./routes-CbS2YmHl.mjs").then((n) => n.t);
-var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./login-TYBsR8JQ.mjs");
-========
 var $$splitComponentImporter$1 = () => import("./routes-CZa70Ecq.mjs").then((n) => n.t);
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
 var $$splitComponentImporter = () => import("./login-s0qblNXk.mjs");
->>>>>>>> origin/main:.vercel/output/functions/__server.func/_ssr/router-PNu298l3.mjs
 var Route$1 = createFileRoute("/login")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 /**
 * Escapes a character if it has a special meaning in regular expressions

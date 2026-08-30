@@ -32,9 +32,10 @@ export function hazardTouches(
   y: number,
   radius = 34,
 ): boolean {
+  const radiusSq = radius * radius;
   for (const hazard of hazards) {
     if (!hazard.sprite.active) continue;
-    if (Phaser.Math.Distance.Between(x, y, hazard.sprite.x, hazard.sprite.y) < radius) {
+    if (Phaser.Math.Distance.Squared(x, y, hazard.sprite.x, hazard.sprite.y) < radiusSq) {
       return true;
     }
   }

@@ -2,15 +2,9 @@ import { o as __toESM } from "../_runtime.mjs";
 import { I as require_jsx_runtime, L as require_react, _ as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { Bt as toKebabCase, m as isSafeUrlScheme, o as createFetch, zt as capitalizeFirstLetter } from "../_libs/@better-auth/core+[...].mjs";
 import { n as defu } from "../_libs/defu.mjs";
-<<<<<<<< HEAD:.vercel/output/functions/__server.func/_ssr/login-TYBsR8JQ.mjs
-import { a as getBaseURL, i as PACKAGE_VERSION, n as GROK_PROVIDERS, r as GENERIC_OAUTH_ERROR_CODES } from "./router-BlLvKllv.mjs";
-import { a as atom, i as onSet, n as STORE_UNMOUNT_DELAY, r as onMount, t as listenKeys } from "../_libs/nanostores.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/login-TYBsR8JQ.js
-========
 import { a as getBaseURL, i as PACKAGE_VERSION, n as GROK_PROVIDERS, r as GENERIC_OAUTH_ERROR_CODES } from "./router-PNu298l3.mjs";
 import { a as atom, i as onSet, n as STORE_UNMOUNT_DELAY, r as onMount, t as listenKeys } from "../_libs/nanostores.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/login-s0qblNXk.js
->>>>>>>> origin/main:.vercel/output/functions/__server.func/_ssr/login-s0qblNXk.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var PROTO_POLLUTION_PATTERNS = {
