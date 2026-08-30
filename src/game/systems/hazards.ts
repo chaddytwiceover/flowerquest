@@ -18,7 +18,7 @@ export function updateHazards(
   deltaSec = 0.016,
   isFrozen = false,
 ) {
-  hazards.forEach((hazard) => updatePest(hazard, playerX, playerY, deltaSec, isFrozen));
+  hazards.forEach((hazard) => updatePest(hazard, { playerX, playerY, deltaSec, isFrozen }));
 }
 
 export function stopHazards(hazards: HazardRef[]) {
@@ -32,10 +32,9 @@ export function hazardTouches(
   y: number,
   radius = 34,
 ): boolean {
-  const radiusSq = radius * radius;
   for (const hazard of hazards) {
     if (!hazard.sprite.active) continue;
-    if (Phaser.Math.Distance.Squared(x, y, hazard.sprite.x, hazard.sprite.y) < radiusSq) {
+    if (Phaser.Math.Distance.Between(x, y, hazard.sprite.x, hazard.sprite.y) < radius) {
       return true;
     }
   }
