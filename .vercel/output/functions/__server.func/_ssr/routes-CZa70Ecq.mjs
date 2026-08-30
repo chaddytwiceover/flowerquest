@@ -2,7 +2,7 @@ import { o as __toESM } from "../_runtime.mjs";
 import { t as __exportAll } from "./rolldown-runtime-D7D4PA-g.mjs";
 import { I as require_jsx_runtime, L as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
 import { c as Snowflake, d as Pause, f as House, i as Trophy, l as RotateCcw, m as ArrowRight, n as VolumeX, o as Sprout, p as Heart, r as Volume2, s as Sparkles, t as Zap, u as Play } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-D-_KDhVO.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CZa70Ecq.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var MUTE_KEY = "flower-quest-muted";
@@ -562,7 +562,7 @@ function tone(freq, duration, type, gain = .07, delay = 0) {
 		amp.disconnect();
 	};
 }
-function note(bus, midiNote, when, dur, type, vol) {
+function note({ bus, midiNote, when, dur, type, vol }) {
 	if (!ctx || midiNote <= 0) return;
 	const osc = ctx.createOscillator();
 	const amp = ctx.createGain();
@@ -584,10 +584,38 @@ function scheduleStep(theme, index, when) {
 	if (!musicBus || muted) return;
 	const eighth = 60 / theme.bpm / 2;
 	const i = index % theme.steps;
-	if (theme.bass[i]) note(musicBus, theme.bass[i], when, eighth * 1.6, theme.bassType, .045);
-	if (theme.lead[i]) note(musicBus, theme.lead[i], when, eighth * 1.15, theme.leadType, .038);
-	if (theme.harmony?.[i]) note(musicBus, theme.harmony[i], when, eighth * 1.1, "sine", .022);
-	if (theme.spark?.[i]) note(musicBus, theme.spark[i], when, eighth * .7, "sine", .018);
+	if (theme.bass[i]) note({
+		bus: musicBus,
+		midiNote: theme.bass[i],
+		when,
+		dur: eighth * 1.6,
+		type: theme.bassType,
+		vol: .045
+	});
+	if (theme.lead[i]) note({
+		bus: musicBus,
+		midiNote: theme.lead[i],
+		when,
+		dur: eighth * 1.15,
+		type: theme.leadType,
+		vol: .038
+	});
+	if (theme.harmony?.[i]) note({
+		bus: musicBus,
+		midiNote: theme.harmony[i],
+		when,
+		dur: eighth * 1.1,
+		type: "sine",
+		vol: .022
+	});
+	if (theme.spark?.[i]) note({
+		bus: musicBus,
+		midiNote: theme.spark[i],
+		when,
+		dur: eighth * .7,
+		type: "sine",
+		vol: .018
+	});
 }
 function pump() {
 	if (!ctx || !currentTune) return;
@@ -3659,7 +3687,7 @@ function PhaserCanvas({ onReady }) {
 		if (!parentRef.current) return;
 		let cancelled = false;
 		let api = null;
-		import("./createGame-C8TSjLz8.mjs").then(({ createFlowerQuest }) => {
+		import("./createGame-bW4e4se1.mjs").then(({ createFlowerQuest }) => {
 			if (cancelled || !parentRef.current) return;
 			api = createFlowerQuest(parentRef.current);
 			onReady(api);
