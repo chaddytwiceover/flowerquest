@@ -146,7 +146,27 @@ function completionHtml(message: PopupMessage): string {
 (function () {
   var el = document.getElementById("grok-auth-popup-msg");
   var msg = { source: "grok-auth-popup", token: null };
-  try { if (el && el.textContent) msg = JSON.parse(el.textContent); } catch (e) {}
+  try {
+    if (el && el.textContent) {
+      var parsed = JSON.parse(el.textContent);
+      if (
+        parsed &&
+        typeof parsed === "object" &&
+        !Array.isArray(parsed) &&
+        parsed.source === "grok-auth-popup" &&
+        (parsed.token === null || typeof parsed.token === "string") &&
+        (typeof parsed.error === "undefined" || typeof parsed.error === "string")
+      ) {
+        msg = {
+          source: "grok-auth-popup",
+          token: parsed.token
+        };
+        if (typeof parsed.error === "string") {
+          msg.error = parsed.error;
+        }
+      }
+    }
+  } catch (e) {}
   try {
     if (window.opener) window.opener.postMessage(msg, window.location.origin);
   } catch (e) {}
