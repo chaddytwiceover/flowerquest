@@ -8,7 +8,7 @@ const popupServerPath = path.resolve("src/lib/auth/popup.server.ts");
 const popupServerContent = fs.readFileSync(popupServerPath, "utf-8");
 
 // Extract the inline script content inside <script>...</script> (excluding the application/json script)
-const scriptMatch = popupServerContent.match(/<script>\s*([\s\S]*?)\s*<\/script>/);
+const scriptMatch = popupServerContent.match(/<script>\s*([\s\S]*?)\s*<\/script>/i);
 assert.ok(scriptMatch, "Should find completionHtml inline script");
 const inlineScript = scriptMatch[1];
 
