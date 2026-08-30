@@ -2,7 +2,7 @@ import { o as __toESM } from "../_runtime.mjs";
 import { t as __exportAll } from "./rolldown-runtime-D7D4PA-g.mjs";
 import { I as require_jsx_runtime, L as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
 import { c as Snowflake, d as Pause, f as House, i as Trophy, l as RotateCcw, m as ArrowRight, n as VolumeX, o as Sprout, p as Heart, r as Volume2, s as Sparkles, t as Zap, u as Play } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-D-_KDhVO.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-DWslNjp4.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var MUTE_KEY = "flower-quest-muted";
@@ -786,14 +786,18 @@ function readGamepad() {
 }
 /** Call once per frame before movement. */
 function updateActions() {
-	const codes = keyOverride ?? [...keys];
 	let x = keyOverride ? 0 : joystick.x;
 	let y = keyOverride ? 0 : joystick.y;
-	if (codes.includes("KeyA") || codes.includes("ArrowLeft")) x -= 1;
-	if (codes.includes("KeyD") || codes.includes("ArrowRight")) x += 1;
-	if (codes.includes("KeyW") || codes.includes("ArrowUp")) y -= 1;
-	if (codes.includes("KeyS") || codes.includes("ArrowDown")) y += 1;
-	if (!keyOverride) {
+	if (keyOverride) {
+		if (keyOverride.includes("KeyA") || keyOverride.includes("ArrowLeft")) x -= 1;
+		if (keyOverride.includes("KeyD") || keyOverride.includes("ArrowRight")) x += 1;
+		if (keyOverride.includes("KeyW") || keyOverride.includes("ArrowUp")) y -= 1;
+		if (keyOverride.includes("KeyS") || keyOverride.includes("ArrowDown")) y += 1;
+	} else {
+		if (keys.has("KeyA") || keys.has("ArrowLeft")) x -= 1;
+		if (keys.has("KeyD") || keys.has("ArrowRight")) x += 1;
+		if (keys.has("KeyW") || keys.has("ArrowUp")) y -= 1;
+		if (keys.has("KeyS") || keys.has("ArrowDown")) y += 1;
 		const pad = readGamepad();
 		x += pad.x;
 		y += pad.y;
@@ -3659,7 +3663,7 @@ function PhaserCanvas({ onReady }) {
 		if (!parentRef.current) return;
 		let cancelled = false;
 		let api = null;
-		import("./createGame-C8TSjLz8.mjs").then(({ createFlowerQuest }) => {
+		import("./createGame-l2hKD8eE.mjs").then(({ createFlowerQuest }) => {
 			if (cancelled || !parentRef.current) return;
 			api = createFlowerQuest(parentRef.current);
 			onReady(api);
