@@ -61,9 +61,10 @@ export function findNearbyCollectible(
   y: number,
   radius = 46,
 ): CollectibleRef | null {
+  const radiusSq = radius * radius;
   for (const flower of flowers) {
     if (!flower.active) continue;
-    if (Phaser.Math.Distance.Between(x, y, flower.x, flower.y) < radius) {
+    if (Phaser.Math.Distance.Squared(x, y, flower.x, flower.y) < radiusSq) {
       return flower;
     }
   }
