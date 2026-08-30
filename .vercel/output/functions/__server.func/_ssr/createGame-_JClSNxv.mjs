@@ -1,6 +1,6 @@
-import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-D-_KDhVO.mjs";
+import { S as stopMusic, _ as sfxLose, a as getLevel, b as sfxWin, c as detachInput, d as updateActions, f as setMusicPaused, g as sfxHurt, h as sfxFreeze, i as LEVELS, l as setJoystick, m as sfxCollect, n as getGameState, o as actions, p as sfxAlert, r as patchGameState, s as attachInput, u as setKeyOverride, v as sfxPowerUp, x as startMusic, y as sfxUnlock } from "./routes-BmtOzprU.mjs";
 import { a as __webpack_exports__Scale, i as __webpack_exports__Math, n as __webpack_exports__BlendModes, o as __webpack_exports__Scene, r as __webpack_exports__Game, t as __webpack_exports__AUTO } from "../_libs/phaser.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/createGame-C8TSjLz8.js
+//#region node_modules/.nitro/vite/services/ssr/assets/createGame-_JClSNxv.js
 var GAME_HEIGHT = 1280;
 var BootScene = class extends __webpack_exports__Scene {
 	constructor() {
@@ -121,9 +121,10 @@ function flowersRemaining(flowers) {
 }
 /** Backup for Arcade overlap misses (tweens / teleport / fast movement). */
 function findNearbyCollectible(flowers, x, y, radius = 46) {
+	const radiusSq = radius * radius;
 	for (const flower of flowers) {
 		if (!flower.active) continue;
-		if (__webpack_exports__Math.Distance.Between(x, y, flower.x, flower.y) < radius) return flower;
+		if (__webpack_exports__Math.Distance.Squared(x, y, flower.x, flower.y) < radiusSq) return flower;
 	}
 	return null;
 }
@@ -1045,36 +1046,35 @@ var GameScene = class extends __webpack_exports__Scene {
 		patchGameState({ phase: result });
 	}
 	wireControlsTest() {
-		const scene = this;
 		window.__controlsTest = {
-			getX: () => scene.player?.sprite.x ?? 0,
-			getY: () => scene.player?.sprite.y ?? 0,
-			getVx: () => scene.player?.sprite.body?.velocity.x ?? 0,
-			getVy: () => scene.player?.sprite.body?.velocity.y ?? 0,
+			getX: () => this.player?.sprite.x ?? 0,
+			getY: () => this.player?.sprite.y ?? 0,
+			getVx: () => this.player?.sprite.body?.velocity.x ?? 0,
+			getVy: () => this.player?.sprite.body?.velocity.y ?? 0,
 			setKeys: (codes) => setKeyOverride(codes.length ? codes : null),
 			setJoystick: (x, y) => setJoystick(x, y),
 			setPosition: (x, y) => {
-				scene.player.sprite.setPosition(x, y);
-				scene.player.sprite.body?.reset(x, y);
+				this.player.sprite.setPosition(x, y);
+				this.player.sprite.body?.reset(x, y);
 			},
-			flowerCount: () => flowersRemaining(scene.flowers),
+			flowerCount: () => flowersRemaining(this.flowers),
 			getHearts: () => getGameState().hearts,
 			getCollected: () => getGameState().flowersCollected,
-			getHazards: () => hazardPositions(scene.hazards),
-			getLevelId: () => scene.level?.id,
+			getHazards: () => hazardPositions(this.hazards),
+			getLevelId: () => this.level?.id,
 			getSubtitle: () => getGameState().levelSubtitle,
 			getBanner: () => getGameState().banner,
-			isGateUnlocked: () => !scene.exit || !scene.exit.locked,
-			getExit: () => scene.exit ? {
-				x: scene.exit.sprite.x,
-				y: scene.exit.sprite.y,
-				locked: scene.exit.locked
+			isGateUnlocked: () => !this.exit || !this.exit.locked,
+			getExit: () => this.exit ? {
+				x: this.exit.sprite.x,
+				y: this.exit.sprite.y,
+				locked: this.exit.locked
 			} : null,
 			getPhase: () => getGameState().phase,
-			getWater: () => scene.level.water ?? [],
-			getBridges: () => scene.level.bridges ?? [],
+			getWater: () => this.level.water ?? [],
+			getBridges: () => this.level.bridges ?? [],
 			getObjectives: () => getGameState().objectives,
-			getWalls: () => scene.level.walls
+			getWalls: () => this.level.walls
 		};
 	}
 	cleanup() {
