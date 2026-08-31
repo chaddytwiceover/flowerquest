@@ -69,4 +69,21 @@ test("resolveObjectives", async (t) => {
       }
     ]);
   });
+
+  await t.test("defaults to empty string label if level.collectibleLabel is null", () => {
+    const level = {
+      flowers: [{}], // 1 flower
+      collectibleLabel: null,
+    };
+
+    const result = resolveObjectives(level);
+    assert.deepEqual(result, [
+      {
+        type: "collect",
+        collectible: "any",
+        required: 1,
+        label: "",
+      }
+    ]);
+  });
 });
