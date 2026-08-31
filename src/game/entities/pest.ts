@@ -93,11 +93,14 @@ function jammedToward(
 
 export function updatePest(
   pest: PestRef,
-  playerX: number,
-  playerY: number,
-  deltaSec: number,
-  isFrozen = false,
+  options: {
+    playerX: number;
+    playerY: number;
+    deltaSec: number;
+    isFrozen?: boolean;
+  }
 ) {
+  const { playerX, playerY, deltaSec, isFrozen = false } = options;
   const { sprite, alertEmote, kind } = pest;
 
   if (!sprite.active) return;
