@@ -50,21 +50,29 @@ export function placeCollectibles(scene: Phaser.Scene, level: LevelDef): Collect
   return flowers;
 }
 
-export function flowersRemaining(flowers: CollectibleRef[]): number {
+export function flowersRemaining(flowers: { active: boolean }[]): number {
   return flowers.filter((flower) => flower.active).length;
 }
 
+export type NearbyCollectible = {
+  active: boolean;
+  x: number;
+  y: number;
+};
+
 /** Backup for Arcade overlap misses (tweens / teleport / fast movement). */
-export function findNearbyCollectible(
-  flowers: CollectibleRef[],
+export function findNearbyCollectible<T extends NearbyCollectible>(
+  flowers: T[],
   x: number,
   y: number,
   radius = 46,
-): CollectibleRef | null {
+): T | null {
   const radiusSq = radius * radius;
   for (const flower of flowers) {
     if (!flower.active) continue;
-    if (Phaser.Math.Distance.Squared(x, y, flower.x, flower.y) < radiusSq) {
+    const dx = x - flower.x;
+    const dy = y - flower.y;
+    if (dx * dx + dy * dy < radiusSq) {
       return flower;
     }
   }
