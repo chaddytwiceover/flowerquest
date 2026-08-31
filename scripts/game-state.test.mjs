@@ -78,4 +78,7 @@ test("patchGameState merges partial state correctly", () => {
   // Other properties should remain untouched
   assert.equal(newState.levelId, initialState.levelId);
   assert.equal(newState.flowersCollected, initialState.flowersCollected);
+
+  // Restore initial state to avoid side effects in other tests
+  patchGameState(initialState);
 });
