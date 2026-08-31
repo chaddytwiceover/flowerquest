@@ -10,15 +10,19 @@ test("lives system tests", async (t) => {
   });
 
   await t.test("currentHearts returns current hearts", () => {
-    resetHearts(5);
-    assert.equal(currentHearts(), 5);
+    // Initial state after resetRunState defaults to heartsMax (3)
+    resetRunState({ heartsMax: 3 });
+    assert.equal(currentHearts(), 3);
 
     loseHeart();
-    assert.equal(currentHearts(), 4);
+    assert.equal(currentHearts(), 2);
 
-    resetHearts(1);
+    loseHeart();
     loseHeart();
     assert.equal(currentHearts(), 0);
+
+    resetHearts(5);
+    assert.equal(currentHearts(), 5);
   });
 
   await t.test("loseHeart decrements hearts", () => {
