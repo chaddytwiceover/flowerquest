@@ -1,4 +1,4 @@
-import { getGameState, patchGameState, type ObjectiveProgress } from "../state";
+import { getGameState, patchGameState, type ObjectiveProgress } from "../state.ts";
 import type { CollectObjective, FlowerKind, LevelDef } from "../types";
 
 export function resolveObjectives(level: LevelDef): CollectObjective[] {
