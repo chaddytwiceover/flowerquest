@@ -4,7 +4,11 @@
     "name": "nitro",
     "version": "3.0.260610-beta"
   },
-  "overrides": {},
+  "overrides": {
+    "index.html": {
+      "path": ""
+    }
+  },
   "routes": [
     {
       "headers": {

@@ -10,8 +10,9 @@
     "skipLibCheck": true,
     "noEmit": true,
     "types": ["vite/client", "node"],
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["src", "server"]
+  "include": ["src"]
 }

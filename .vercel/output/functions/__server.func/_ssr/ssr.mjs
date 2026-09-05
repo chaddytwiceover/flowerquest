@@ -1,15 +1,13 @@
-import { r as __exportAll } from "../_runtime.mjs";
-import { t as __exportAll$1 } from "./rolldown-runtime-D7D4PA-g.mjs";
-import { C as getStylesheetHref, D as executeRewriteInput, E as _getRenderedMatches, F as isNotFound, I as require_jsx_runtime, L as require_react, M as isRedirect, N as isResolvedRedirect, O as invariant, P as rootRouteId, S as getScriptPreloadAttrs, T as resolveManifestCssLink, a as isSsrResponse, c as stripSsrResponseBody, d as RouterProvider, i as disposeSsrResponseDetached, n as bindSsrResponseToRequest, o as normalizeSsrResponse, r as defineHandlerCallback, s as replaceSsrResponse, t as renderRouterToStream, w as resolveManifestAssetLink } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as __exportAll } from "../_runtime.mjs";
+import { C as resolveManifestAssetLink, D as invariant, E as executeRewriteInput, F as require_jsx_runtime, I as require_react, M as isResolvedRedirect, N as rootRouteId, P as isNotFound, S as getStylesheetHref, T as _getRenderedMatches, a as isSsrResponse, c as stripSsrResponseBody, d as RouterProvider, i as disposeSsrResponseDetached, j as isRedirect, n as bindSsrResponseToRequest, o as normalizeSsrResponse, r as defineHandlerCallback, s as replaceSsrResponse, t as renderRouterToStream, w as resolveManifestCssLink, x as getScriptPreloadAttrs } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as createMemoryHistory } from "../_libs/tanstack__history.mjs";
 import { a as getOrigin, c as createSerializationAdapter, d as toCrossJSONAsync, f as toCrossJSONStream, i as getNormalizedURL, l as makeSerovalPlugin, n as mergeHeaders, o as defaultSerovalPlugins, r as attachRouterServerSsrUtils, s as createRawStreamRPCPlugin, t as waitForRequest, u as fromJSON } from "../_libs/@tanstack/router-core+[...].mjs";
-import { n as setCookie, r as toResponse, t as H3Event } from "../_libs/h3-v2+rou3.mjs";
+import { n as toResponse, t as H3Event } from "../_libs/h3-v2+rou3.mjs";
 import { AsyncLocalStorage } from "node:async_hooks";
 //#region node_modules/.nitro/vite/services/ssr/index.js
 var ssr_exports = /* @__PURE__ */ __exportAll({
 	createServerEntry: () => createServerEntry,
-	default: () => server_default,
-	t: () => server_exports
+	default: () => server_default
 });
 require_react();
 var import_jsx_runtime = require_jsx_runtime();
@@ -72,18 +70,6 @@ function getH3Event() {
 	if (!event) throw new Error(`No StartEvent found in AsyncLocalStorage. Make sure you are using the function within the server runtime.`);
 	return event.h3Event;
 }
-/**
-* Set a cookie value by name.
-* @param name Name of the cookie to set
-* @param value Value of the cookie to set
-* @param options {CookieSerializeOptions} Options for serializing the cookie
-* ```ts
-* setCookie('Authorization', '1234567')
-* ```
-*/
-function setCookie$1(name, value, options) {
-	setCookie(getH3Event(), name, value, options);
-}
 function getResponse() {
 	return getH3Event().res;
 }
@@ -98,7 +84,7 @@ var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 * the dev styles URL for route-scoped CSS collection.
 */
 async function getStartManifest(matchedRoutes) {
-	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-C4k-yGvF.mjs");
+	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-uc137jti.mjs");
 	const startManifest = tsrStartManifest();
 	let routes = startManifest.routes;
 	routes[rootRouteId];
@@ -1205,7 +1191,7 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-BlLvKllv.mjs").then((n) => n.t),
+		import("./router-BeRrLToY.mjs").then((n) => n.t),
 		import("./start-5Z2QO8AU.mjs"),
 		import("./empty-plugin-adapters-D9UWiqvJ.mjs")
 	]);
@@ -1643,7 +1629,6 @@ async function handleServerRoutes({ getRouter, request, url, executeRouter, cont
 	}
 	return normalizeSsrResponse(response);
 }
-var server_exports = /* @__PURE__ */ __exportAll$1({ setCookie: () => setCookie$1 });
 var fetch = createStartHandler(defaultStreamHandler);
 function createServerEntry(entry) {
 	return { async fetch(...args) {
@@ -1652,4 +1637,4 @@ function createServerEntry(entry) {
 }
 var server_default = createServerEntry({ fetch });
 //#endregion
-export { createServerEntry, server_default as default, ssr_exports as n, server_exports as t };
+export { createServerEntry, server_default as default, ssr_exports as t };
