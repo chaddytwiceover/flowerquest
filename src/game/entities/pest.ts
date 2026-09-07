@@ -28,12 +28,12 @@ export function createPest(scene: Phaser.Scene, def: HazardDef): PestRef {
 
   if (kind === "bee") {
     sprite = scene.physics.add.sprite(def.x, def.y, "bee-sprite");
-    sprite.setScale(0.85);
+    sprite.setScale(1.15);
     sprite.setOrigin(0.5, 0.5);
     sprite.body?.setCircle(22, 10, 10);
   } else if (kind === "wasp") {
     sprite = scene.physics.add.sprite(def.x, def.y, "wasp-sprite");
-    sprite.setScale(0.9);
+    sprite.setScale(1.2);
     sprite.setOrigin(0.5, 0.5);
     sprite.body?.setCircle(22, 10, 10);
   } else {

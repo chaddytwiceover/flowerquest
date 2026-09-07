@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { lockedExitHint } from "../src/game/systems/objectives.ts";
-import { getGameState, patchGameState, resetRunState } from "../src/game/state.ts";
+import { patchGameState, resetRunState } from "../src/game/state.ts";
 
 test("objectives system tests", async (t) => {
   t.beforeEach(() => {

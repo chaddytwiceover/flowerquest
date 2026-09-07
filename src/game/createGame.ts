@@ -58,6 +58,7 @@ export function createFlowerQuest(parent: HTMLElement): GameApi {
 
   const api: GameApi = {
     startLevel(levelId: string) {
+      if (!getGameState().assetsReady) return;
       lastLevel = levelId;
       setJoystick(0, 0);
       setKeyOverride(null);
@@ -69,6 +70,7 @@ export function createFlowerQuest(parent: HTMLElement): GameApi {
       game.scene.start("game", { levelId });
     },
     pause() {
+      if (getGameState().phase !== "playing") return;
       if (!game.scene.isActive("game")) return;
       setJoystick(0, 0);
       setKeyOverride(null);
@@ -108,10 +110,18 @@ export function createFlowerQuest(parent: HTMLElement): GameApi {
       detachInput();
       stopMusic();
       current = null;
+      if (import.meta.env.DEV && window.__flowerQuestApi === api) delete window.__flowerQuestApi;
       game.destroy(true);
     },
   };
 
   current = api;
+  if (import.meta.env.DEV) window.__flowerQuestApi = api;
   return api;
+}
+
+declare global {
+  interface Window {
+    __flowerQuestApi?: GameApi;
+  }
 }
