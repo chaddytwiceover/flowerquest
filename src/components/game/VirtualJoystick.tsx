@@ -13,11 +13,27 @@ export function VirtualJoystick() {
     setJoystick(0, 0);
   }, []);
 
-  useEffect(() => release, [release]);
+  useEffect(() => {
+    const onHide = () => {
+      if (document.hidden) release();
+    };
+    window.addEventListener("blur", release);
+    document.addEventListener("visibilitychange", onHide);
+    return () => {
+      window.removeEventListener("blur", release);
+      document.removeEventListener("visibilitychange", onHide);
+      release();
+    };
+  }, [release]);
+
+  const onPointerEnd = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (pointerId.current === e.pointerId) release();
+  }, [release]);
 
   const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     // Only capture primary touch/click and avoid UI buttons
     if (e.target !== e.currentTarget) return;
+    if (pointerId.current !== null || !e.isPrimary || e.button !== 0) return;
     e.preventDefault();
     pointerId.current = e.pointerId;
     origin.current = { x: e.clientX, y: e.clientY };
@@ -44,8 +60,9 @@ export function VirtualJoystick() {
       style={{ touchAction: "none" }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
-      onPointerUp={release}
-      onPointerCancel={release}
+      onPointerUp={onPointerEnd}
+      onPointerCancel={onPointerEnd}
+      onLostPointerCapture={onPointerEnd}
     />
   );
 }

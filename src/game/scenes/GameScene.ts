@@ -29,7 +29,7 @@ import {
   type ExitRef,
 } from "../systems/exit";
 import { placePowerBlooms, collectPowerBloom, type PowerBloomRef } from "../systems/powerBlooms";
-import { clearPowerUps, updatePowerUps } from "../systems/powerups";
+import { activatePowerUp, clearPowerUps, updatePowerUps } from "../systems/powerups";
 import { followPlayer, placeWorld } from "../systems/world";
 import { getGameState, patchGameState } from "../state";
 import type { LevelDef } from "../types";
@@ -94,6 +94,7 @@ export class GameScene extends Phaser.Scene {
     });
     this.powerBlooms.forEach((bloom) => {
       this.physics.add.overlap(this.player.sprite, bloom, () => {
+        if (this.ended || getGameState().phase !== "playing") return;
         collectPowerBloom(this, bloom, () => this.healPlayer());
       });
     });
@@ -233,7 +234,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   private hitPlayer() {
-    if (this.ended) return;
+    const state = getGameState();
+    if (this.ended || state.phase !== "playing" || state.activePowerUp === "frost") return;
     const now = this.time.now;
     if (now < this.player.invincibleUntil) return;
 
@@ -281,6 +283,13 @@ export class GameScene extends Phaser.Scene {
     window.__controlsTest = {
       getX: () => this.player?.sprite.x ?? 0,
       getY: () => this.player?.sprite.y ?? 0,
+      getPlayerRender: () => ({
+        active: this.player?.sprite.active ?? false,
+        visible: this.player?.sprite.visible ?? false,
+        texture: this.player?.sprite.texture.key ?? "",
+        displayWidth: this.player?.sprite.displayWidth ?? 0,
+        displayHeight: this.player?.sprite.displayHeight ?? 0,
+      }),
       getVx: () => this.player?.sprite.body?.velocity.x ?? 0,
       getVy: () => this.player?.sprite.body?.velocity.y ?? 0,
       setKeys: (codes: string[]) => setKeyOverride(codes.length ? codes : null),
@@ -291,8 +300,19 @@ export class GameScene extends Phaser.Scene {
       },
       flowerCount: () => flowersRemaining(this.flowers),
       getHearts: () => getGameState().hearts,
+      getSnapshot: () => getGameState(),
+      activatePowerUp: (kind: "frost" | "swift") => activatePowerUp(kind),
+      clearPowerUps: () => clearPowerUps(),
       getCollected: () => getGameState().flowersCollected,
       getHazards: () => hazardPositions(this.hazards),
+      getHazardRender: () =>
+        this.hazards.map((hazard) => ({
+          active: hazard.sprite.active,
+          visible: hazard.sprite.visible,
+          texture: hazard.sprite.texture.key,
+          displayWidth: hazard.sprite.displayWidth,
+          displayHeight: hazard.sprite.displayHeight,
+        })),
       getLevelId: () => this.level?.id,
       getSubtitle: () => getGameState().levelSubtitle,
       getBanner: () => getGameState().banner,
@@ -326,6 +346,13 @@ declare global {
     __controlsTest?: {
       getX: () => number;
       getY: () => number;
+      getPlayerRender?: () => {
+        active: boolean;
+        visible: boolean;
+        texture: string;
+        displayWidth: number;
+        displayHeight: number;
+      };
       getVx: () => number;
       getVy: () => number;
       setKeys: (codes: string[]) => void;
@@ -333,8 +360,18 @@ declare global {
       setPosition: (x: number, y: number) => void;
       flowerCount?: () => number;
       getHearts?: () => number;
+      getSnapshot?: () => ReturnType<typeof getGameState>;
+      activatePowerUp?: (kind: "frost" | "swift") => void;
+      clearPowerUps?: () => void;
       getCollected?: () => number;
       getHazards?: () => { x: number; y: number }[];
+      getHazardRender?: () => {
+        active: boolean;
+        visible: boolean;
+        texture: string;
+        displayWidth: number;
+        displayHeight: number;
+      }[];
       getLevelId?: () => string;
       getSubtitle?: () => string;
       getBanner?: () => string | null;
