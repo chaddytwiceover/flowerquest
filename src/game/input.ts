@@ -12,6 +12,7 @@ const keys = new Set<string>();
 const joystick = { x: 0, y: 0 };
 let keyOverride: string[] | null = null;
 let attached = false;
+let gamepadAccessDenied = false;
 
 const GAME_KEYS = new Set([
   "KeyW",
@@ -22,11 +23,11 @@ const GAME_KEYS = new Set([
   "ArrowLeft",
   "ArrowDown",
   "ArrowRight",
-  "Space",
 ]);
 
 function onKeyDown(event: KeyboardEvent) {
-  if (GAME_KEYS.has(event.code)) event.preventDefault();
+  if (!GAME_KEYS.has(event.code)) return;
+  event.preventDefault();
   keys.add(event.code);
 }
 
@@ -83,10 +84,17 @@ function radialDeadzone(x: number, y: number, dz = 0.15) {
 }
 
 function readGamepad(): { x: number; y: number } {
-  if (typeof navigator === "undefined" || !navigator.getGamepads) {
+  if (gamepadAccessDenied || typeof navigator === "undefined" || !navigator.getGamepads) {
     return { x: 0, y: 0 };
   }
-  const pads = navigator.getGamepads();
+  let pads: (Gamepad | null)[];
+  try {
+    pads = navigator.getGamepads();
+  } catch (error) {
+    if (!(error instanceof DOMException) || error.name !== "SecurityError") throw error;
+    gamepadAccessDenied = true;
+    return { x: 0, y: 0 };
+  }
   for (const pad of pads) {
     if (!pad) continue;
     const stick = radialDeadzone(pad.axes[0] ?? 0, pad.axes[1] ?? 0);
